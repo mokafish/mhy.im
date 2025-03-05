@@ -1,0 +1,20 @@
+---
+// Component Imports
+import TButton from '../components/Button.astro';
+import Page from "../layouts/Page.astro";
+// Full Astro Component Syntax:
+// https://docs.astro.build/basics/astro-components/
+---
+
+<Page title="Play" >
+
+	<div class="grid place-items-center h-screen content-center">
+		<TButton>Tailwind Button in Astro!</TButton>
+		<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
+		<mdui-button  variant="tonal" class="text-cyan-600">点我</mdui-button>
+		<my-counter></my-counter>
+		<my-counter></my-counter>
+
+	</div>
+</Page>
+

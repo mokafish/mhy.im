@@ -1,0 +1,63 @@
+---
+
+import Feather from "./Feather.astro";
+
+---
+
+<mdui-navigation-drawer class="not-open-if-mobile" open id="main-drawer" close-on-esc close-on-overlay-click>
+    <mdui-list>
+        <mdui-list-item>Navigation drawer</mdui-list-item>
+    </mdui-list>
+</mdui-navigation-drawer>
+
+<mdui-top-app-bar style="position: relative;"
+                  variant="medium"
+                  scroll-behavior="shrink elevate"
+                  scroll-target=".layout-main"
+                  class="p-3"
+>
+    <mdui-button-icon id="main-drawer-open" style="color: rgba(var(--mdui-color-primary), 1)">
+        <Feather icon="menu"></Feather>
+    </mdui-button-icon>
+    <mdui-top-app-bar-title>
+        这是收起状态的标题
+        <span slot="label-large">这是展开状态的标题</span>
+    </mdui-top-app-bar-title>
+    <div style="flex-grow: 1"></div>
+    <mdui-button-icon style="color: rgba(var(--mdui-color-primary), 1)">
+        <Feather icon="more-vertical"></Feather>
+    </mdui-button-icon>
+
+
+    <script>
+        import type {NavigationDrawer} from 'mdui';
+
+        const drawer = document.getElementById('main-drawer') as NavigationDrawer;
+
+        drawer.addEventListener('open', (event) => {
+            console.log('drawer opening ')
+        })
+
+
+
+        const timer = setInterval(() => {
+            console.log('drawer loaded ')
+            console.log(drawer.hasAttribute('mobile'))
+            if(drawer.hasAttribute('mobile')){
+                drawer.open = false;
+                clearInterval(timer);
+
+                drawer.addEventListener('closed', (event) => {
+                    drawer.classList.remove('not-open-if-mobile');
+                    console.debug('抽屉栏关闭');
+                },{once:true});
+            }
+        },100)
+
+        const btn =  document.getElementById('main-drawer-open') as HTMLElement;
+        btn.addEventListener("click", () => drawer.open = !drawer.open);
+        console.log(btn);
+        console.log(drawer);
+    </script>
+
+</mdui-top-app-bar>

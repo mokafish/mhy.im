@@ -1,1 +1,11 @@
 @import 'tailwindcss';
+
+
+.hello{
+    padding: 4px;
+    color: #66ccff;
+}
+
+#main-drawer[mobile].not-open-if-mobile{
+    display: none!important;
+}

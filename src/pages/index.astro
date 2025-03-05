@@ -1,49 +1,24 @@
 ---
-import '../styles/global.css';
-// Component Imports
-import TButton from '../components/Button.astro';
-import Layout from "../layouts/Layout.astro";
-// Full Astro Component Syntax:
-// https://docs.astro.build/basics/astro-components/
+import Page from "../layouts/Page.astro";
+import Feather from "../components/Feather.astro";
+import type {NavigationDrawer} from "mdui";
+import Header from "../components/Header.astro";
 ---
+<Page title="Home" >
 
-<Layout title="Home" >
+<mdui-layout>
+   <Header />
 
-	<div class="grid place-items-center h-screen content-center">
-		<TButton>Tailwind Button in Astro!</TButton>
-		<a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-		<mdui-button variant="tonal">点我</mdui-button>
+    <mdui-layout-main class="layout-main bg-amber-500 h-screen">
 
-	</div>
+        <div class="h-[999px] bg-amber-200 p-4">
+            Main body
+        </div>
+        <!--<div class="h-48 bg-red-200"></div>-->
 
-	<script>
-		import type { Button } from "mdui";
 
-		const button = document.querySelector('mdui-button') as Button;
-		// if(button){
-		//
-		// 	// 设置 JavaScript 属性
-		// 	button.variant = 'text';
-		//
-		// 	// 读取 JavaScript 属性
-		// 	console.log(button.variant); // outlined
-		// }
+    </mdui-layout-main>
+</mdui-layout>
 
-		function handleButtonClick(event: Event) {
-			const button = event.target as Button;
-			if(button){
 
-				// 设置 JavaScript 属性
-				button.variant = 'elevated';
-
-				// 读取 JavaScript 属性
-				console.log(button.variant); // outlined
-			}
-		}
-
-		button.addEventListener('click', handleButtonClick);
-
-	</script>
-
-</Layout>
-
+</Page>

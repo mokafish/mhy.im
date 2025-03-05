@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+const { title } = Astro.props
+---
+
+<html lang="zh-hans">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=4, shrink-to-fit=no"/>
+    <meta name="renderer" content="webkit"/>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.min.css" >
+    <style media="all">
+
+
+    </style>
+</head>
+<body>
+<!--class="min-h-screen flex flex-row"-->
+    <!--<div class="min-h-screen">-->
+    <!--    <slot />-->
+    <!--</div>-->
+    <slot />
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.global.min.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/@mdui/icons@1.0.2/menu.min.js"></script>-->
+</body>
+</html>
