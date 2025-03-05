@@ -1,5 +1,10 @@
-import '@mdui/icons/'
 import type {Button} from "mdui";
+import * as mdui from 'mdui';
+
+console.log('load mdui.js '+ (mdui && 'ok'));
+// mdui.setColorScheme('#ed97b7');
+// mdui.setTheme('dark')
+mdui.setColorScheme('#ca99dd');
 
 class Counter extends HTMLElement {
     // 声明类属性（关键修复）
@@ -39,25 +44,5 @@ class Counter extends HTMLElement {
 
 customElements.define('my-counter', Counter);
 
-
-
-// 1. 添加 null 类型并检查元素存在性
-const button = document.querySelector('mdui-button') as Button | null;
-
-function handleButtonClick(event: Event) {
-    // 2. 使用 currentTarget 代替 target 确保类型安全
-    const button = event.currentTarget as Button;
-
-    // 设置属性（TS 会验证 variant 类型）
-    button.variant = 'elevated';
-
-    // 读取属性（TS 知道这是 string 类型）
-    console.log(button.variant);
-}
-
-// 3. 添加前检查元素是否存在
-if (button) {
-    button.addEventListener('click', handleButtonClick);
-}
 
 

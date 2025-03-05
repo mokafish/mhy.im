@@ -1,11 +1,12 @@
 ---
 import '../styles/global.css';
+import 'mdui/mdui.css';
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 const {title , prose} = Astro.props
 
 let prose_cls = prose ? ' mdui-prose': '';
-prose_cls = prose ? ' prose lg:prose-xl': '';
+// prose_cls = prose ? ' prose lg:prose-xl': '';
 ---
 
 <html lang="zh-hans">
@@ -16,17 +17,18 @@ prose_cls = prose ? ' prose lg:prose-xl': '';
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <title>{title}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.min.css">
-    <style media="all">
+    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.min.css">-->
+    <script type="text/javascript">
+        // var theme_cls ="mdui-theme-dark"
+        // document.getElementsByTagName('html')[0].setAttribute('class', "mdui-theme-dark")
+    </script>
+    <script>
+        import '../scripts/global'
+    </script>
 
-
-    </style>
 </head>
 <body>
-<!--class="min-h-screen flex flex-row"-->
-<!--<div class="min-h-screen">-->
-<!--    <slot />-->
-<!--</div>-->
+
 <mdui-layout>
     <Header title={title} />
     <mdui-layout-main class="layout-main h-screen flex flex-col"
@@ -41,6 +43,6 @@ prose_cls = prose ? ' prose lg:prose-xl': '';
 </mdui-layout>
 
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.global.min.js"></script>
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.global.min.js"></script>-->
 </body>
 </html>

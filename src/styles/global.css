@@ -8,6 +8,19 @@
     /*scroll-padding-top: 120px;*/
 }
 
+pre > code {
+    display: block;
+    overflow-x: auto;
+    padding: 0;
+    margin: 0;
+    background-color: transparent !important;
+}
+
+/*pre > code > .line{*/
+/*    display: inline-block;*/
+/*    width: 100%;*/
+/*}*/
+
 
 .hello{
     padding: 4px;
