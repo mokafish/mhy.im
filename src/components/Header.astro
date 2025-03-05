@@ -1,27 +1,34 @@
 ---
-
 import Feather from "./Feather.astro";
-
+const {title} = Astro.props
 ---
 
-<mdui-navigation-drawer class="not-open-if-mobile" open id="main-drawer" close-on-esc close-on-overlay-click>
+<style>
+    mdui-navigation-drawer::part(panel) {
+        background: rgb(var(--mdui-color-secondary-container));
+    }
+</style>
+
+<mdui-navigation-drawer class="not-open-if-mobile"
+                        open id="main-drawer" close-on-esc close-on-overlay-click
+
+>
     <mdui-list>
         <mdui-list-item>Navigation drawer</mdui-list-item>
     </mdui-list>
 </mdui-navigation-drawer>
 
-<mdui-top-app-bar style="position: relative;"
-                  variant="medium"
+<mdui-top-app-bar variant="medium"
                   scroll-behavior="shrink elevate"
                   scroll-target=".layout-main"
-                  class="p-3"
+                  class="p-3 position-relative bg-[rgb(var(--mdui-color-primary-container))]"
 >
     <mdui-button-icon id="main-drawer-open" style="color: rgba(var(--mdui-color-primary), 1)">
         <Feather icon="menu"></Feather>
     </mdui-button-icon>
     <mdui-top-app-bar-title>
-        这是收起状态的标题
-        <span slot="label-large">这是展开状态的标题</span>
+        {title}
+        <span slot="label-large">{title}</span>
     </mdui-top-app-bar-title>
     <div style="flex-grow: 1"></div>
     <mdui-button-icon style="color: rgba(var(--mdui-color-primary), 1)">
@@ -39,22 +46,21 @@ import Feather from "./Feather.astro";
         })
 
 
-
         const timer = setInterval(() => {
             console.log('drawer loaded ')
             console.log(drawer.hasAttribute('mobile'))
-            if(drawer.hasAttribute('mobile')){
+            if (drawer.hasAttribute('mobile')) {
                 drawer.open = false;
                 clearInterval(timer);
 
                 drawer.addEventListener('closed', (event) => {
                     drawer.classList.remove('not-open-if-mobile');
                     console.debug('抽屉栏关闭');
-                },{once:true});
+                }, {once: true});
             }
-        },100)
+        }, 100)
 
-        const btn =  document.getElementById('main-drawer-open') as HTMLElement;
+        const btn = document.getElementById('main-drawer-open') as HTMLElement;
         btn.addEventListener("click", () => drawer.open = !drawer.open);
         console.log(btn);
         console.log(drawer);

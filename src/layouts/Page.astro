@@ -1,17 +1,22 @@
 ---
 import '../styles/global.css';
-const { title } = Astro.props
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+const {title , prose} = Astro.props
+
+let prose_cls = prose ? ' mdui-prose': '';
+prose_cls = prose ? ' prose lg:prose-xl': '';
 ---
 
 <html lang="zh-hans">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=4, shrink-to-fit=no"/>
     <meta name="renderer" content="webkit"/>
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <title>{title}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.min.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.min.css">
     <style media="all">
 
 
@@ -19,12 +24,23 @@ const { title } = Astro.props
 </head>
 <body>
 <!--class="min-h-screen flex flex-row"-->
-    <!--<div class="min-h-screen">-->
-    <!--    <slot />-->
-    <!--</div>-->
-    <slot />
+<!--<div class="min-h-screen">-->
+<!--    <slot />-->
+<!--</div>-->
+<mdui-layout>
+    <Header title={title} />
+    <mdui-layout-main class="layout-main h-screen flex flex-col"
+                      style="background: rgba(var(--mdui-color-secondary-container),0.5); scroll-padding-top: 120px;">
+        <div class={"p-4 grow "+prose_cls}>
+            <slot/>
+        </div>
+        <Footer />
+
+
+    </mdui-layout-main>
+</mdui-layout>
+
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.global.min.js"></script>
-<!--    <script src="https://cdn.jsdelivr.net/npm/@mdui/icons@1.0.2/menu.min.js"></script>-->
 </body>
 </html>

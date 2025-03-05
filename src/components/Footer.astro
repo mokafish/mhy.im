@@ -1,0 +1,11 @@
+---
+import * as pkg from  '../../package.json'
+
+const year = new Date().getFullYear()
+const {name} = Astro.props
+
+---
+
+<footer class="h-max px-4  py-2 text-xs text-right " style="/*background: rgb(var(--mdui-color-secondary-container))*/">
+     &copy; {year} {name || pkg.name}
+</footer>

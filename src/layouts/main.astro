@@ -1,9 +1,8 @@
 ---
-import '../styles/global.css';
 import Page from "./Page.astro";
 const { content } = Astro.props;
 ---
 
-<Page title={content.title} >
+<Page title={content.title} prose>
 	<slot></slot>
 </Page>

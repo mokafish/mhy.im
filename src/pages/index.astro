@@ -1,24 +1,18 @@
 ---
 import Page from "../layouts/Page.astro";
-import Feather from "../components/Feather.astro";
-import type {NavigationDrawer} from "mdui";
-import Header from "../components/Header.astro";
+import TButton from "../components/Button.astro";
 ---
 <Page title="Home" >
 
-<mdui-layout>
-   <Header />
 
-    <mdui-layout-main class="layout-main bg-amber-500 h-screen">
+  <div class="grid place-items-center h-full content-center">
+   <TButton>Tailwind Button in Astro!</TButton>
+      <a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
+      <a href="/sandbox" class="p-4 underline">Markdown 沙盒</a>
+   <mdui-button  variant="tonal" class="text-cyan-600">点我</mdui-button>
+   <my-counter></my-counter>
+   <my-counter></my-counter>
 
-        <div class="h-[999px] bg-amber-200 p-4">
-            Main body
-        </div>
-        <!--<div class="h-48 bg-red-200"></div>-->
+  </div>
+ </Page>
 
-
-    </mdui-layout-main>
-</mdui-layout>
-
-
-</Page>

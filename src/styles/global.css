@@ -1,4 +1,12 @@
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+
+.layout-main {
+    scroll-behavior: smooth;
+    /*background: rgba(var(--mdui-color-secondary-container),0.5);*/
+    /*scroll-padding-top: 120px;*/
+}
 
 
 .hello{
