@@ -31,8 +31,7 @@ let prose_cls = prose ? ' mdui-prose': '';
 
 <mdui-layout>
     <Header title={title} />
-    <mdui-layout-main class="layout-main h-screen flex flex-col"
-                      style="background: rgba(var(--mdui-color-secondary-container),0.5); scroll-padding-top: 120px;">
+    <mdui-layout-main class="layout-main h-screen flex flex-col">
         <div class={"p-4 grow "+prose_cls}>
             <slot/>
         </div>
