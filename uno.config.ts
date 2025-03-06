@@ -3,6 +3,12 @@ import { defineConfig } from 'unocss'
 
 export default defineConfig({
     presets: [
-        presetWind4(),
+        presetWind4({
+            dark: {
+                dark: '.mdui-theme-dark', // 自定义暗黑选择器
+                light: '.mdui-theme-light' // 可选：自定义明亮模式选择器
+            }
+        }),
     ],
 })
+

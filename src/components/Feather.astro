@@ -1,14 +1,17 @@
 ---
-const {icon, width=24, height=24} = Astro.props
+const {icon, style, width = 24, height = 24} = Astro.props;
+const className = Astro.props?.class || `feather-icon-${icon}`;
 ---
-<svg
-        width={width}
-        height={height}
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+<svg class={className} style={style}
+     width={width}
+     height={height}
+     fill="none"
+     stroke="currentColor"
+     stroke-width="2"
+     stroke-linecap="round"
+     stroke-linejoin="round"
 >
-    <use href={"/feather-sprite.svg#"+icon} />
+
+    <use href={"/feather-sprite.svg#" + icon}/>
+
 </svg>

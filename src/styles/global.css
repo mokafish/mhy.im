@@ -29,6 +29,20 @@ pre > code {
 /*    width: 100%;*/
 /*}*/
 
+.mdui-theme-dark .icon-toggle-theme-dark{
+    display: none
+}
+.mdui-theme-dark .icon-toggle-theme-light{
+    display: inline;
+}
+
+html:not(.mdui-theme-dark) .icon-toggle-theme-light {
+    display: none
+}
+
+html:not(.mdui-theme-dark) .icon-toggle-theme-dark {
+    display: inline;
+}
 
 .hello{
     padding: 4px;

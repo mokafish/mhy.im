@@ -10,7 +10,22 @@ layout: ../layouts/main.astro
 - [特殊元素](#特殊元素)
 - [其他测试](#其他测试)
 
----
+```css
+.mdui-theme-dark .icon-toggle-theme-dark{
+    display: none
+}
+.mdui-theme-dark .icon-toggle-theme-light{
+    display: inline;
+}
+
+:not(.mdui-theme-dark) .icon-toggle-theme-light {
+    display: none
+}
+
+:not(.mdui-theme-dark) .icon-toggle-theme-dark {
+    display: inline;
+}
+```
 
 ## 基础语法
 
