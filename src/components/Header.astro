@@ -7,17 +7,47 @@ const {title} = Astro.props
     mdui-navigation-drawer::part(panel) {
         background: rgb(var(--mdui-color-secondary-container));
     }
-</style>
 
+    .profile-infobox{
+        background-color: rgba(var(--mdui-color-primary), 0.2);
+        background-image: url("/profile_background.jpg");
+        background-size: cover;
+    }
+    .profile-avatar{
+        border: solid 2px #617cfb;
+    }
+    #main-drawer {
+        box-shadow: var(--mdui-elevation-level2);
+    }
+
+</style>
+{/** 抽屉栏 */}
 <mdui-navigation-drawer class="not-open-if-mobile"
                         open id="main-drawer" close-on-esc close-on-overlay-click
 
 >
+    <div class="profile-infobox w-full aspect-video">
+        <div class="w-full aspect-video bg-[#0000007f] relative flex flex-col mdui-theme-dark">
+            <div class="">
+                <!--top-->
+            </div>
+            <div class="grow">
+                <!--mid-->
+            </div>
+            <div class="p-4">
+                <mdui-top-app-bar-title>
+                <img class="profile-avatar w-[3em] m-4 rounded-full inline-block" src="/avatar.png" /> Name
+                </mdui-top-app-bar-title>
+            </div>
+
+        </div>
+    </div>
     <mdui-list>
         <mdui-list-item>Navigation drawer</mdui-list-item>
     </mdui-list>
 </mdui-navigation-drawer>
 
+{/** 顶栏 */}
 <mdui-top-app-bar variant="medium"
                   scroll-behavior="shrink elevate"
                   scroll-target=".main-article-wrapper"

@@ -2,17 +2,15 @@
 import Page from "../layouts/Page.astro";
 import TButton from "../components/Button.astro";
 ---
-<Page title="Home" >
+<Page title="Home">
+    <div class="grid place-items-center h-full content-center">
+        <TButton>Tailwind Button in Astro!</TButton>
+        <a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
+        <a href="/sandbox" class="p-4 underline">Markdown 沙盒</a>
 
+        <my-counter></my-counter>
+        <my-counter></my-counter>
 
-  <div class="grid place-items-center h-full content-center">
-   <TButton>Tailwind Button in Astro!</TButton>
-      <a href="/markdown-page" class="p-4 underline">Markdown is also supported...</a>
-      <a href="/sandbox" class="p-4 underline">Markdown 沙盒</a>
-
-   <my-counter></my-counter>
-   <my-counter></my-counter>
-
-  </div>
- </Page>
+    </div>
+</Page>
 

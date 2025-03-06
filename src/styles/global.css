@@ -29,6 +29,7 @@ pre > code {
 /*    width: 100%;*/
 /*}*/
 
+/** 主题切换按钮样式 */
 .mdui-theme-dark .icon-toggle-theme-dark{
     display: none
 }
@@ -42,6 +43,12 @@ html:not(.mdui-theme-dark) .icon-toggle-theme-light {
 
 html:not(.mdui-theme-dark) .icon-toggle-theme-dark {
     display: inline;
+}
+
+/** 选中文本 */
+::selection {
+    background-color: #617cfb55 ;
+    color: currentColor;
 }
 
 .hello{

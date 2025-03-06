@@ -4,7 +4,7 @@ import * as mdui from 'mdui';
 console.log('load mdui.js '+ (mdui && 'ok'));
 // mdui.setColorScheme('#ed97b7');
 // mdui.setTheme('dark')
-// mdui.setColorScheme('#00aaff');
+mdui.setColorScheme('#66ccff');
 // mdui.setColorScheme('#a227f3');
 // mdui.setColorScheme('#e962cb');
 
@@ -12,7 +12,7 @@ console.log('load mdui.js '+ (mdui && 'ok'));
 // mdui.setColorScheme('#ffb6c1');
 // mdui.setColorScheme('#ff9fcf');
 
-mdui.setColorScheme('#f15dff');
+// mdui.setColorScheme('#f15dff');
 
 
 
