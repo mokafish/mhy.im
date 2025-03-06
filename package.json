@@ -15,7 +15,7 @@
     "astro": "^5.4.1",
     "canvas-confetti": "^1.9.3",
     "feather-icons": "^4.29.2",
-    "mdui": "^2.1.3",
+    "mdui": "^2.1.3"
   },
   "web-types": [
     "./node_modules/mdui/web-types.zh-cn.json"
