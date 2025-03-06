@@ -1,7 +1,8 @@
 ---
 import Page from "../layouts/Page.astro";
 import sprite from '../../public/feather-sprite.svg?raw'
-const title='Icons';
+import Feather from "../components/Feather.astro";
+const title = 'Icons';
 
 // import fs from 'fs';
 // function extractIdsFromFile(filePath:string) {
@@ -14,7 +15,7 @@ const title='Icons';
 //     }
 // }
 
-function extractIds(text:string){
+function extractIds(text: string) {
     const regex = /(?:\s|^)id\s*=\s*(?:"([^"]*)"|'([^']*)'|([^"'\s]+))/g;
     const matches = [];
     let match;
@@ -33,13 +34,39 @@ const ids = extractIds(sprite);
 ---
 
 <Page title={title}>
-    <pre>
-        <code>{/**/}
-    {ids.map(id => (<span class="line">{id+'\n'}</span>))}
-        </code>
-    </pre>
+    <!--<pre>-->
+    <!--    <code>{/**/}-->
+    <!--        {ids.map(id => (<span class="line">{id + '\n'}</span>))}-->
+    <!--    </code>-->
+    <!--</pre>-->
 
     <div class="flex flex-wrap justify-space-between">
-        <div
+        {ids.map(id => (
+                <mdui-button-icon title={id} class="item">
+                    <Feather icon={id}/>
+                </mdui-button-icon>
+
+        ))}
     </div>
+
+    <p class="p-8"></p>
+    <p class="opacity-77 mdui-prose"> {ids.length} icons from
+        <a  href="https://feathericons.com/">feathericons</a>
+    </p>
+
+    <script>
+        import * as mdui from 'mdui';
+
+        document.querySelectorAll('.item').forEach((el) => {
+            el.addEventListener('click', () => {
+                const title = el.getAttribute('title') as string;
+                mdui.alert({
+                    headline: title,
+                    description: '',
+                });
+                console.log(title);
+            })
+        })
+
+    </script>
 </Page>
