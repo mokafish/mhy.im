@@ -1,5 +1,5 @@
 
-.layout-main {
+.main-article-wrapper {
     scroll-behavior: smooth;
     background: rgba(var(--mdui-color-secondary-container),0.5);
     /* 有点bug, 会出现类似 body {padding-top: -128px} 的现象 */
@@ -7,8 +7,8 @@
 }
 
 /** 防止锚点被应用栏遮挡 */
-.layout-main h1::before, .layout-main h2::before, .layout-main h3::before,
-.layout-main h4::before, .layout-main h5::before, .layout-main h6::before {
+.main-article-wrapper h1::before, .main-article-wrapper h2::before, .main-article-wrapper h3::before,
+.main-article-wrapper h4::before, .main-article-wrapper h5::before, .main-article-wrapper h6::before {
     content: "";
     display: block;
     height: 128px;

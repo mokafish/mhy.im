@@ -18,7 +18,10 @@ let prose_cls = prose ? ' mdui-prose': '';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <title>{title}</title>
     <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.min.css">-->
+    <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.global.min.js"></script>-->
     <script type="text/javascript">
+        console.debug('document load');
+
         // var theme_cls ="mdui-theme-dark"
         // document.getElementsByTagName('html')[0].setAttribute('class', "mdui-theme-dark")
     </script>
@@ -31,17 +34,12 @@ let prose_cls = prose ? ' mdui-prose': '';
 
 <mdui-layout>
     <Header title={title} />
-    <mdui-layout-main class="layout-main h-screen flex flex-col">
-        <div class={"p-4 grow "+prose_cls}>
+    <mdui-layout-main class="main-article-wrapper h-screen flex flex-col">
+        <article class={"p-4 grow "+prose_cls}>
             <slot/>
-        </div>
+        </article>
         <Footer />
-
-
     </mdui-layout-main>
 </mdui-layout>
-
-
-<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.global.min.js"></script>-->
 </body>
 </html>
