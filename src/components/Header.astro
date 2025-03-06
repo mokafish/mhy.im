@@ -41,7 +41,7 @@ const {title} = Astro.props
 
     <script>
         import type {NavigationDrawer, Button} from 'mdui';
-        import {setTheme, getTheme} from 'mdui';
+        import {setTheme, getTheme, setColorScheme} from 'mdui';
 
         const drawer = document.getElementById('main-drawer') as NavigationDrawer;
 
@@ -69,8 +69,12 @@ const {title} = Astro.props
         btn2.addEventListener("click", () => {
             if (getTheme() === 'dark') {
                 setTheme('light');
+                // setColorScheme('#ffb6c1')
+                // setColorScheme('#9824e5');
             }else {
                 setTheme('dark');
+                // setColorScheme('#ff9fcf')
+                // setColorScheme('#9824e5');
             }
         });
 

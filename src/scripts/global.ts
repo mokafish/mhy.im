@@ -4,7 +4,21 @@ import * as mdui from 'mdui';
 console.log('load mdui.js '+ (mdui && 'ok'));
 // mdui.setColorScheme('#ed97b7');
 // mdui.setTheme('dark')
-mdui.setColorScheme('#ca99dd');
+// mdui.setColorScheme('#00aaff');
+// mdui.setColorScheme('#a227f3');
+// mdui.setColorScheme('#e962cb');
+
+
+// mdui.setColorScheme('#ffb6c1');
+// mdui.setColorScheme('#ff9fcf');
+
+mdui.setColorScheme('#f15dff');
+
+
+
+
+
+
 
 class Counter extends HTMLElement {
     // 声明类属性（关键修复）

@@ -1,0 +1,45 @@
+---
+import Page from "../layouts/Page.astro";
+import sprite from '../../public/feather-sprite.svg?raw'
+const title='Icons';
+
+// import fs from 'fs';
+// function extractIdsFromFile(filePath:string) {
+//     try {
+//         const content = fs.readFileSync(filePath, 'utf8');
+//         return extractIds(content);
+//     } catch (error) {
+//         console.error('Error reading file:', error);
+//         return [];
+//     }
+// }
+
+function extractIds(text:string){
+    const regex = /(?:\s|^)id\s*=\s*(?:"([^"]*)"|'([^']*)'|([^"'\s]+))/g;
+    const matches = [];
+    let match;
+    while ((match = regex.exec(text)) !== null) {
+        const idValue = match[1] ?? match[2] ?? match[3];
+        if (idValue) {
+            matches.push(idValue);
+        }
+    }
+    return matches;
+}
+
+
+// const ids = extractIdsFromFile('public/feather-sprite.svg');
+const ids = extractIds(sprite);
+---
+
+<Page title={title}>
+    <pre>
+        <code>{/**/}
+    {ids.map(id => (<span class="line">{id+'\n'}</span>))}
+        </code>
+    </pre>
+
+    <div class="flex flex-wrap justify-space-between">
+        <div
+    </div>
+</Page>
