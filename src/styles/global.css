@@ -46,7 +46,7 @@ code {
 :root {
     --h: 270deg;
     --s: 95%;
-    --l: 65.09%;
+    --l: 65%;
     --h2: 322deg;
     --my-primary: hsl(var(--h) var(--s) var(--l));
     --my-secondary: hsl(var(--h2) var(--s) var(--l));
@@ -163,8 +163,4 @@ html:not(.mdui-theme-dark) .icon-toggle-theme-dark {
 .hello{
     padding: 4px;
     color: #66ccff;
-}
-
-#main-drawer[mobile].not-open-if-mobile{
-    display: none!important;
 }

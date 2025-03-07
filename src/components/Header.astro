@@ -28,8 +28,8 @@ const {title} = Astro.props
     }
 </style>
 {/** 抽屉栏 */}
-<mdui-navigation-drawer class="not-open-if-mobile"
-                        open id="main-drawer" close-on-esc close-on-overlay-click
+<mdui-navigation-drawer id="main-drawer"
+                         open close-on-esc close-on-overlay-click
 
 >
     <div class="profile-infobox w-full aspect-video">
@@ -44,15 +44,15 @@ const {title} = Astro.props
                 <!--mid-->
             </div>
             <div class="p-8 flex items-center">
-                    <mdui-button-icon href="/" class="w-[3em] h-[3em] profile-avatar ">
-                        <img class="w-full h-full m-4" src="/avatar.png"/>
-                    </mdui-button-icon>
+                <mdui-button-icon href="/" class="w-[3em] h-[3em] profile-avatar ">
+                    <img class="w-full h-full m-4" src="/avatar.png"/>
+                </mdui-button-icon>
 
-                    <mdui-button href="/profile" variant="text" class="h-full">
-                        <mdui-top-app-bar-title class="" >
-                            大天才
-                        </mdui-top-app-bar-title>
-                    </mdui-button>
+                <mdui-button href="/profile" variant="text" class="h-full">
+                    <mdui-top-app-bar-title class="">
+                        大天才
+                    </mdui-top-app-bar-title>
+                </mdui-button>
             </div>
 
         </div>
@@ -94,18 +94,6 @@ const {title} = Astro.props
             console.log('drawer opening ')
         })
 
-
-        const timer = setInterval(() => {
-            if (drawer.hasAttribute('mobile')) {
-                drawer.open = false;
-                clearInterval(timer);
-
-                drawer.addEventListener('closed', (event) => {
-                    drawer.classList.remove('not-open-if-mobile');
-                    console.debug('抽屉栏关闭');
-                }, {once: true});
-            }
-        }, 100)
 
         const btn = document.getElementById('btn-open-drawer') as HTMLElement;
         btn.addEventListener("click", () => drawer.open = !drawer.open);
