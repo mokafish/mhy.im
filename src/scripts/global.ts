@@ -2,9 +2,9 @@ import type {Button} from "mdui";
 import * as mdui from 'mdui';
 
 console.log('load mdui.js '+ (mdui && 'ok'));
-// mdui.setColorScheme('#ed97b7');
-// mdui.setTheme('dark')
 mdui.setColorScheme('#66ccff');
+// mdui.setTheme('dark')
+// mdui.setColorScheme('#a855f7');
 // mdui.setColorScheme('#a227f3');
 // mdui.setColorScheme('#e962cb');
 

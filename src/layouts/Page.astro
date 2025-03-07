@@ -6,7 +6,8 @@ import Header from "../components/Header.astro";
 const {title , prose} = Astro.props
 
 let prose_cls = prose ? ' mdui-prose': '';
-// prose_cls = prose ? ' prose lg:prose-xl': '';
+prose_cls = prose ? ' prose xl:text-xl'  : '';
+
 ---
 
 <html lang="zh-hans">
@@ -35,7 +36,7 @@ let prose_cls = prose ? ' mdui-prose': '';
 <mdui-layout>
     <Header title={title} />
     <mdui-layout-main class="main-article-wrapper h-screen flex flex-col">
-        <article class={"p-4 grow "+prose_cls}>
+        <article class={"article p-4 grow "+prose_cls}>
             <slot/>
         </article>
         <Footer />

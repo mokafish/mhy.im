@@ -1,3 +1,110 @@
+@font-face {
+    font-family: 'YouSheShaYuFeiTeJianKangTi';
+    src: url('/fonts/YouSheShaYuFeiTeJianKangTi.ttf') format('truetype');
+    font-weight: normal;  /* 默认字重 */
+    font-style: normal;   /* 默认样式 */
+    font-display: swap;   /* 避免文字闪烁，先显示备用字体 */
+}
+
+@font-face {
+    font-family: 'ChillRound';
+    src: url('fonts/ChillRoundFBold.ttf') format('truetype');
+    font-weight: bold;  /* 粗体字重 */
+    font-style: normal; /* 默认样式 */
+    font-display: swap; /* 避免文字闪烁，先显示备用字体 */
+}
+
+@font-face {
+    font-family: 'ChillRound';
+    src: url('/fonts/ChillRoundFRegular.ttf') format('truetype');
+    font-weight: normal;  /* 默认字重 */
+    font-style: normal;   /* 默认样式 */
+    font-display: swap;   /* 避免文字闪烁，先显示备用字体 */
+}
+
+@font-face {
+    font-family: 'ChillRound2';
+    src: url('/fonts/ChillRoundM.ttf') format('truetype');
+    font-weight: normal;  /* 默认字重 */
+    font-style: normal;   /* 默认样式 */
+    font-display: swap;   /* 避免文字闪烁，先显示备用字体 */
+}
+
+body {
+    /*system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"*/
+
+    --font-sans:  ChillRound2, ChillRound, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-serif: YouSheShaYuFeiTeJianKangTi, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-mono:  SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New", ChillRound, "Microsoft YaHei", Roboto, monospace;
+    font-family: var(--font-sans);
+}
+
+code {
+    font-family: var(--font-mono) !important;
+}
+
+:root {
+    --h: 270deg;
+    --s: 95%;
+    --l: 65.09%;
+    --h2: 322deg;
+    --my-primary: hsl(var(--h) var(--s) var(--l));
+    --my-secondary: hsl(var(--h2) var(--s) var(--l));
+}
+
+/**********************
+       文章排版
+ *********************/
+.article a {
+    color: var(--my-primary);
+    text-decoration: none;
+}
+
+.article a:hover , .article a:focus , .article u,  .article ins{
+    text-decoration: underline;
+    text-underline-mode: normal;
+    text-underline-position: under;
+    text-underline-offset: 15%;
+}
+
+.article a:active {
+    color: var(--my-secondary);
+}
+
+.article :not(pre) code {
+    color: var(--my-secondary);
+    background: hsla(var(--h2) var(--s) var(--l) / 0.1);
+    border-radius: var(--mdui-shape-corner-extra-small);
+    display: inline-block;
+}
+
+/*.article i, */
+.article em {
+    opacity: 0.55;
+}
+
+.article del {
+    opacity: 0.45;
+}
+
+.article del:hover {
+    text-decoration: none;
+}
+
+.article strong, .article b {
+    /*background: hsl(var(--h) var(--s) var(--l) / 0.2);*/
+}
+
+.article img {
+    color: var(--my-primary);
+}
+
+
+
+
+    /**********************
+           应用布局
+     *********************/
 
 .main-article-wrapper {
     scroll-behavior: smooth;

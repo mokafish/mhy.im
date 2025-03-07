@@ -2,40 +2,35 @@
 title: 'Markdown 语法沙盒'
 layout: ../layouts/main.astro
 ---
-## 目录
-- [← 返回](/)
+
 
 - [基础语法](#基础语法)
 - [扩展语法](#扩展语法)
 - [特殊元素](#特殊元素)
 - [其他测试](#其他测试)
 
-```css
-.mdui-theme-dark .icon-toggle-theme-dark{
-    display: none
-}
-.mdui-theme-dark .icon-toggle-theme-light{
-    display: inline;
-}
 
-:not(.mdui-theme-dark) .icon-toggle-theme-light {
-    display: none
-}
+[← 返回首页](/)
+| [Astro](https://docs.astro.build/en/getting-started/)
+| [Tailwind](https://tailwindcss.com/docs/opacity)
+| [MDUI](https://www.mdui.org/zh-cn/docs/2/components/card)
+| [图标列表](/icons)
 
-:not(.mdui-theme-dark) .icon-toggle-theme-dark {
-    display: inline;
-}
-```
+
 
 ## 基础语法
+### 1. 代码块
+```python
+# hello, 你好
+def test():
+    x = 5
+    while x < 10:
+        print("围栏代码块")
+        
+    return
+```
 
-### 1. 标题
-# H1
-## H2
-### H3
-#### H4
-##### H5
-###### H6
+普通代码： `代码文本` `string`
 
 ### 2. 段落与换行
 这是第一段落（行尾加两个空格  换行）  
@@ -50,7 +45,7 @@ layout: ../layouts/main.astro
 ***粗斜体*** ___粗斜体___  
 ~~删除线~~  
 `行内代码`  
-<u>下划线（HTML）</u>  
+<u>下划线（HTML）</u>   
 ==高亮（扩展语法）==  
 H~2~O  
 X^2^  
@@ -78,24 +73,20 @@ X^2^
 ### 5. 链接与图片
 [内联链接](https://example.com)  
 [参考式链接][1]  
-![图片替代文本](https://via.placeholder.com/150 "图片标题")  
+<!--![图片替代文本](https://www.dmoe.cc/random.php "图片标题")-->
+![狸猫的随机图片](https://api.miaomc.cn/image/get "图片标题")
+
 <https://autolink.example.com>  
 
 [1]: https://example.com/reference
 
-### 6. 代码块
-```python
-# hello, 你好
-def test():
-    x = 5
-    while x < 10:
-        print("围栏代码块")
-        
-    return
-```
-
-普通代码块：
-<div>缩进代码块</div>
+### 6. 标题
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
 
 ---
 
