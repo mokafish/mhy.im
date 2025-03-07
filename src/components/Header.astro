@@ -8,19 +8,22 @@ const {title} = Astro.props
         background: rgb(var(--mdui-color-secondary-container));
     }
 
-    .profile-infobox{
+    .profile-infobox {
         background-color: rgba(var(--mdui-color-primary), 0.2);
         background-image: url("/profile_background.jpg");
         background-size: cover;
     }
-    .profile-avatar{
-        border: solid 2px #617cfb;
+
+    .profile-avatar {
+        color: #617cfb;
+        outline: solid 2px currentColor;
     }
+
     #main-drawer {
         box-shadow: var(--mdui-elevation-level2);
     }
 
-    .app-bar{
+    .app-bar {
         background: rgb(var(--mdui-color-primary-container));
     }
 </style>
@@ -31,16 +34,25 @@ const {title} = Astro.props
 >
     <div class="profile-infobox w-full aspect-video">
         <div class="w-full aspect-video bg-[#0000007f] relative flex flex-col mdui-theme-dark">
-            <div class="">
-                <!--top-->
+            <div class="flex p-3">
+                <div class="grow"></div>
+                <!--<mdui-button-icon>-->
+                <!--    <Feather icon="home" class="icon-toggle-theme-dark"></Feather>-->
+                <!--</mdui-button-icon>-->
             </div>
             <div class="grow">
                 <!--mid-->
             </div>
-            <div class="p-4">
-                <mdui-top-app-bar-title>
-                <img class="profile-avatar w-[3em] m-4 rounded-full inline-block" src="/avatar.png" /> Name
-                </mdui-top-app-bar-title>
+            <div class="p-8 flex items-center">
+                    <mdui-button-icon class="w-[3em] h-[3em] profile-avatar ">
+                        <img class="w-full h-full m-4" src="/avatar.png"/>
+                    </mdui-button-icon>
+
+                    <mdui-button variant="text" class="h-full">
+                        <mdui-top-app-bar-title class="" >
+                            大天才
+                        </mdui-top-app-bar-title>
+                    </mdui-button>
             </div>
 
         </div>
@@ -61,7 +73,7 @@ const {title} = Astro.props
     </mdui-button-icon>
     <mdui-top-app-bar-title>
         {title}
-        <span slot="label-large">{title}</span>
+        <h1 slot="label-large">{title}</h1>
     </mdui-top-app-bar-title>
     <div style="flex-grow: 1"></div>
     <mdui-button-icon id="btn-toggle-theme" style="color: rgba(var(--mdui-color-primary), 1)">
@@ -104,13 +116,12 @@ const {title} = Astro.props
                 setTheme('light');
                 // setColorScheme('#ffb6c1')
                 // setColorScheme('#9824e5');
-            }else {
+            } else {
                 setTheme('dark');
                 // setColorScheme('#ff9fcf')
                 // setColorScheme('#9824e5');
             }
         });
-
 
 
     </script>
