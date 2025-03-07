@@ -3,11 +3,10 @@ import '../styles/global.css';
 import 'mdui/mdui.css';
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-const {title , prose} = Astro.props
+const {title, prose} = Astro.props
 
-let prose_cls = prose ? ' mdui-prose': '';
-prose_cls = prose ? ' prose xl:text-xl'  : '';
-
+let prose_cls = prose ? ' mdui-prose' : '';
+prose_cls = prose ? ' prose xl:text-xl' : '';
 ---
 
 <html lang="zh-hans">
@@ -22,9 +21,16 @@ prose_cls = prose ? ' prose xl:text-xl'  : '';
     <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.global.min.js"></script>-->
     <script type="text/javascript">
         console.debug('document load');
+        const dark_cls = "mdui-theme-dark";
+        const light_cls = "mdui-theme-dark";
+        const root = document.getElementsByTagName('html')[0];
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            root.setAttribute('class', dark_cls);
+        } else if (savedTheme === 'light') {
+            root.setAttribute('class', light_cls);
+        }
 
-        // var theme_cls ="mdui-theme-dark"
-        // document.getElementsByTagName('html')[0].setAttribute('class', "mdui-theme-dark")
     </script>
     <script>
         import '../scripts/global'
@@ -32,14 +38,14 @@ prose_cls = prose ? ' prose xl:text-xl'  : '';
 
 </head>
 <body>
-
+<noscript></noscript>
 <mdui-layout>
-    <Header title={title} />
+    <Header title={title}/>
     <mdui-layout-main class="main-article-wrapper h-screen flex flex-col">
-        <article class={"article p-4 grow "+prose_cls}>
+        <article class={"article p-4 grow " + prose_cls}>
             <slot/>
         </article>
-        <Footer />
+        <Footer/>
     </mdui-layout-main>
 </mdui-layout>
 </body>

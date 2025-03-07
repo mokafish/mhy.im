@@ -114,10 +114,13 @@ const {title} = Astro.props
         btn2.addEventListener("click", () => {
             if (getTheme() === 'dark') {
                 setTheme('light');
+                localStorage.setItem('theme', 'light');
                 // setColorScheme('#ffb6c1')
                 // setColorScheme('#9824e5');
             } else {
                 setTheme('dark');
+                localStorage.setItem('theme', 'dark');
+
                 // setColorScheme('#ff9fcf')
                 // setColorScheme('#9824e5');
             }
