@@ -3,9 +3,26 @@ import * as pkg from  '../../package.json'
 
 const year = new Date().getFullYear()
 const {name} = Astro.props
-
+const className =  Astro.props.class
+console.log(Astro.props)
 ---
 
-<footer class="h-max px-4  py-2 text-xs text-right " style="/*background: rgb(var(--mdui-color-secondary-container))*/">
+<style>
+     a {
+          text-decoration: underline;
+          text-underline-position: under;
+     }
+</style>
+
+<footer class={className+" h-max px-4 opacity-60  py-2 text-xs text-right "} style="/*background: rgb(var(--mdui-color-secondary-container))*/">
+     <span>
+          Powered by <a href="https://astro.build">Astro</a>
+     </span>
+     <span>
+          with template  <a href="https://astro.build">MagicBook</a>
+     </span>
+     <span>
      &copy; {year} {name || pkg.name}
+
+     </span>
 </footer>
