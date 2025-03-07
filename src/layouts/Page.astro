@@ -19,6 +19,44 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
     <title>{title}</title>
     <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.min.css">-->
     <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mdui@2.1.3/mdui.global.min.js"></script>-->
+    <style>
+        .waitFOUC .hasFOUC {
+            //visibility: hidden;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+        .hasFOUC{
+            transition: opacity 500ms ease-in,
+            transform 1s ease-out; /* 过渡属性 */
+
+            transform: translateY(0px);
+            opacity: 1;
+        }
+        .waitFOUC .backFOUC {
+            visibility: visible;
+        }
+        .backFOUC{
+            //visibility: hidden;
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(var(--mdui-color-secondary-container),0.5);
+        }
+        .backFOUC > .app-bar {
+            height: 112px;
+            background-color: rgb(var(--mdui-color-primary-container));
+        }
+        .main-layout {
+            background-color: rgb(var(--mdui-color-background));
+
+
+        }
+        body {
+            overflow: hidden;
+        }
+
+    </style>
+
     <script type="text/javascript">
         console.debug('document start load...');
         const dark_cls = "mdui-theme-dark";
@@ -47,9 +85,13 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
     </script>
 
 </head>
-<body>
-<noscript></noscript>
-<mdui-layout>
+<body class="waitFOUC">
+<aside class="backFOUC">
+    <div class="app-bar"></div>
+    <noscript></noscript>
+</aside>
+
+<mdui-layout  class="hasFOUC main-layout">
     <Header title={title}/>
     <mdui-layout-main class="main-article-wrapper h-screen flex flex-col">
         <article class={"article p-4 grow " + prose_cls}>
@@ -58,6 +100,48 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
         <Footer/>
     </mdui-layout-main>
 </mdui-layout>
+
+<script>
+    function areAllValuesTrue(obj:object) {
+        for (const key in obj) {
+            if ( obj[key] !== true) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    let expect_drawer_width = 360
+    if( window.innerWidth < 360){
+        expect_drawer_width = window.innerWidth * 0.85;
+    }
+    const ok_flags = {
+        drawer: false,
+    }
+
+    function fixFOUC() {
+        if (!ok_flags.drawer) {
+
+            const drawer = document.getElementById('main-drawer') as HTMLElement;
+            const w = drawer.clientWidth
+            ok_flags.drawer =  w <= expect_drawer_width;
+            // ok_flags.drawer =  w <= 360;
+        }
+    }
+
+    const timer = setInterval(() => {
+        if(areAllValuesTrue(ok_flags)){
+            clearInterval(timer);
+            document.body.classList.remove('waitFOUC');
+            console.log('fixFOUC done');
+        }else {
+            fixFOUC();
+            console.debug('fixFOUC', ok_flags);
+
+        }
+
+    }, 100)
+</script>
 
 <script>
     let ex;
@@ -69,10 +153,10 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
     console.log('is_mobile: ' + ex);
 
     const drawer = document.getElementById('main-drawer') as HTMLElement;
-    if(ex){
+    if (ex) {
         drawer.removeAttribute('open');
     }
-
 </script>
+
 </body>
 </html>

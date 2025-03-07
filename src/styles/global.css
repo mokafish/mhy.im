@@ -110,7 +110,7 @@ code {
 
 .main-article-wrapper {
     scroll-behavior: smooth;
-    background: rgba(var(--mdui-color-secondary-container),0.5);
+    background-color: rgba(var(--mdui-color-secondary-container),0.5);
     /* 有点bug, 会出现类似 body {padding-top: -128px} 的现象 */
     /*scroll-padding-top: 128px;*/
 }
