@@ -61,9 +61,13 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
             overflow: hidden;
         }
 
-        //.main-layout{
-        //    overflow: hidden;
-        //}
+        .main-layout{
+            overflow: hidden;
+        }
+        #anchor-page-top{
+            scroll-margin-top: 100px;
+        }
+
     </style>
 
     <script type="text/javascript">
@@ -103,7 +107,7 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
 <mdui-layout class="hasFOUC main-layout">
     <Header title={title}/>
     <mdui-layout-main class="main-article-wrapper h-screen flex flex-col">
-        <div id="anchor-page-top" class="anchor"></div>
+        <div id="anchor-page-top"></div>
         <article class={"article p-4 grow " + prose_cls}>
             <slot/>
         </article>
