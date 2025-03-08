@@ -1,11 +1,16 @@
 ---
 import Feather from "./Feather.astro";
+import SiteMenu from "./SiteMenu.astro";
 const {title} = Astro.props
 ---
 
 <style>
     mdui-navigation-drawer::part(panel) {
         background-color: rgb(var(--mdui-color-secondary-container));
+        scrollbar-width: none;
+    }
+    #main-drawer::part(panel)::-webkit-scrollbar {
+        display: none;
     }
 
     .profile-infobox {
@@ -23,9 +28,16 @@ const {title} = Astro.props
         box-shadow: var(--mdui-elevation-level2);
     }
 
+
     .app-bar {
         background-color: rgb(var(--mdui-color-primary-container));
     }
+
+    .drawer-tabs::part(container) {
+        background-color: transparent;
+    }
+
+
 </style>
 {/** 抽屉栏 */}
 <mdui-navigation-drawer id="main-drawer"
@@ -57,9 +69,35 @@ const {title} = Astro.props
 
         </div>
     </div>
-    <mdui-list>
-        <mdui-list-item>Navigation drawer</mdui-list-item>
-    </mdui-list>
+
+    <mdui-tabs  value="tab-menu" full-width class="drawer-tabs">
+        <mdui-tab value="tab-menu">菜单</mdui-tab>
+        <mdui-tab value="tab-catalog">合集</mdui-tab>
+        <mdui-tab value="tab-toc">本页目录</mdui-tab>
+
+        <mdui-tab-panel slot="panel" value="tab-menu">
+            <SiteMenu />
+        </mdui-tab-panel>
+        <mdui-tab-panel slot="panel" value="tab-catalog">
+            <mdui-list>
+                <mdui-list-item>
+                    合集目录
+                </mdui-list-item>
+            </mdui-list>
+        </mdui-tab-panel>
+        <mdui-tab-panel slot="panel" value="tab-toc">
+            <mdui-list>
+                <mdui-list-item>
+                    本页内容
+                </mdui-list-item>
+            </mdui-list>
+        </mdui-tab-panel>
+    </mdui-tabs>
+
+
+
+
+
 </mdui-navigation-drawer>
 
 {/** 顶栏 */}

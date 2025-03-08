@@ -1,0 +1,52 @@
+---
+import utils from "../scripts/utils";
+const data = [
+    {text: '文本工具', color: 'transparent'}
+]
+for (let i = 0; i <= 10; i++) {
+    data.push(data[0]);
+}
+
+
+---
+
+
+<mdui-list class="grid grid-cols-3 gap-8 p-4">
+    {data.map((item, i) => (
+            <mdui-list-item rounded class="rand-hue grid place-items-center text-center aspect-square"
+                            data-bg="hsl(? 42% 25% / 0.5"
+            >
+                <span class="text-gray-1 dark:text-gray-4" >{item.text}</span>
+            </mdui-list-item>
+
+    ))}
+</mdui-list>
+
+<script>
+    import utils from "../scripts/utils";
+    import {$} from "mdui";
+
+    // $('[data-lcg-css]').each((i, el) => {
+    //     // console.log(el)
+    //     const $el = $(el);
+    //     const rule = $el.data('lcg-css') as string;
+    //     const [k, v] = rule?.split(':')
+    //     const n = utils.lcg.next(0, 360)
+    //     const rv = v.replaceAll('?', String(n))
+    //     $el.css(k, rv)
+    //
+    // })
+    $('.rand-hue').each((i,el)=>{
+        const $el = $(el);
+        const bg = $el.data('bg') as string;
+        if (bg) {
+            $el.css('background', bg.replaceAll('?', ''+utils.lcg.next(0, 360)));
+        }
+        const fg = $el.data('fg') as string;
+        if (fg) {
+            $el.css('color', fg.replaceAll('?', ''+utils.lcg.next(0, 360)));
+        }
+        const h = $el.data('h');
+        console.log(bg,fg,h)
+    })
+</script>
