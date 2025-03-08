@@ -25,36 +25,45 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
             opacity: 0;
             transform: translateY(100px);
         }
-        .hasFOUC{
+
+        .hasFOUC {
             transition: opacity 500ms ease-in,
             transform 1s ease-out; /* 过渡属性 */
 
             transform: translateY(0px);
             opacity: 1;
         }
+
         .waitFOUC .backFOUC {
             visibility: visible;
         }
-        .backFOUC{
+
+        .backFOUC {
             //visibility: hidden;
             position: absolute;
             width: 100vw;
             height: 100vh;
-            background: rgba(var(--mdui-color-secondary-container),0.5);
+            background: rgba(var(--mdui-color-secondary-container), 0.5);
         }
+
         .backFOUC > .app-bar {
             height: 112px;
             background-color: rgb(var(--mdui-color-primary-container));
         }
+
         .main-layout {
             background-color: rgb(var(--mdui-color-background));
 
 
         }
+
         body {
             overflow: hidden;
         }
 
+        //.main-layout{
+        //    overflow: hidden;
+        //}
     </style>
 
     <script type="text/javascript">
@@ -91,20 +100,33 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
     <noscript></noscript>
 </aside>
 
-<mdui-layout  class="hasFOUC main-layout">
+<mdui-layout class="hasFOUC main-layout">
     <Header title={title}/>
     <mdui-layout-main class="main-article-wrapper h-screen flex flex-col">
+        <div id="anchor-page-top" class="anchor"></div>
         <article class={"article p-4 grow " + prose_cls}>
             <slot/>
         </article>
         <Footer/>
     </mdui-layout-main>
 </mdui-layout>
+<script>
+    /** 防止过度滚动  *******
+     * 目标锚点太靠近页底的话，跳转时，浏览器会把整个页面抬上去，
+     * 使锚点靠近视口顶部，导致页面出现向上平移现象，
+     * 页面部分被裁掉， 页面底部与视口底部出现大量空白。
+     */
+    document.querySelector('.main-layout')?.addEventListener('scroll', (e: Event) => {
+        console.log('Prevent excessive scrolling');
+        e.preventDefault();
+        (e.target as HTMLElement).scrollTo(0, 0);
+    });
+</script>
 
 <script>
-    function areAllValuesTrue(obj:object) {
+    function areAllValuesTrue(obj: object) {
         for (const key in obj) {
-            if ( obj[key] !== true) {
+            if (obj[key] !== true) {
                 return false;
             }
         }
@@ -112,7 +134,7 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
     }
 
     let expect_drawer_width = 360
-    if( window.innerWidth < 360){
+    if (window.innerWidth < 360) {
         expect_drawer_width = window.innerWidth * 0.85;
     }
     const ok_flags = {
@@ -124,17 +146,17 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
 
             const drawer = document.getElementById('main-drawer') as HTMLElement;
             const w = drawer.clientWidth
-            ok_flags.drawer =  w <= expect_drawer_width;
+            ok_flags.drawer = w <= expect_drawer_width;
             // ok_flags.drawer =  w <= 360;
         }
     }
 
     const timer = setInterval(() => {
-        if(areAllValuesTrue(ok_flags)){
+        if (areAllValuesTrue(ok_flags)) {
             clearInterval(timer);
             document.body.classList.remove('waitFOUC');
             console.log('fixFOUC done');
-        }else {
+        } else {
             fixFOUC();
             console.debug('fixFOUC', ok_flags);
 

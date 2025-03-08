@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: 'ChillRound';
-    src: url('fonts/ChillRoundFBold.ttf') format('truetype');
+    src: url('/fonts/ChillRoundFBold.ttf') format('truetype');
     font-weight: bold;  /* 粗体字重 */
     font-style: normal; /* 默认样式 */
     font-display: swap; /* 避免文字闪烁，先显示备用字体 */
