@@ -3,7 +3,8 @@ import {
     defineConfig,
     presetAttributify,
     presetTypography,
-    presetUno
+    presetUno,
+    extractorSplit
 } from 'unocss'
 
 export default defineConfig({
@@ -12,13 +13,17 @@ export default defineConfig({
             dark: {
                 dark: '.mdui-theme-dark', // 自定义暗黑选择器
                 light: '.mdui-theme-light' // 可选：自定义明亮模式选择器
-            }
+            },
+
         }),
 
         presetAttributify(), // required when using attributify mode
         presetUno(), // required
         presetTypography(),
     ],
+    blocklist:[
+        '[rounded=""]',
+    ]
 })
 
 

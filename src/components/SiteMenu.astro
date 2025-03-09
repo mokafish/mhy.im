@@ -10,13 +10,18 @@ for (let i = 0; i <= 10; i++) {
 
 ---
 
+<style>
+    .site-menu-item {
+        box-shadow: var(--mdui-elevation-level5);
+    }
+</style>
 
 <mdui-list class="grid grid-cols-3 gap-8 p-4">
     {data.map((item, i) => (
-            <mdui-list-item rounded class="rand-hue grid place-items-center text-center aspect-square"
+            <mdui-list-item rounded class="site-menu-item rand-hue grid place-items-center text-center  aspect-square "
                             data-bg="hsl(? 42% 25% / 0.5"
             >
-                <span class="text-gray-1 dark:text-gray-4" >{item.text}</span>
+                <span class="text-gray-1 dark:text-gray-4 text-center " >{item.text}</span>
             </mdui-list-item>
 
     ))}
