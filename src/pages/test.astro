@@ -1,64 +1,14 @@
 ---
-
+import { getCollection } from 'astro:content';
 import Page from "../layouts/Page.astro";
-import Feather from "../components/Feather.astro";
-
+const posts = await getCollection('blog');
+console.log(posts);
 ---
-<Page title="Test" >
-<div  style="position: relative; overflow: hidden">
-    <mdui-navigation-drawer id="main-drawer" modal close-on-esc close-on-overlay-click contained>
-        <mdui-button class="close">关闭侧边抽屉栏</mdui-button>
-    </mdui-navigation-drawer>
-    <mdui-top-app-bar
-            variant="medium"
-            scroll-behavior="shrink elevate"
-            scroll-target=".example-label-large-slot"
-            class="p-3"
-    >
-        <mdui-button-icon id="main-drawer-open" style="color: rgba(var(--mdui-color-primary), 1)">
-            <Feather icon="menu"></Feather>
-            <!--<Feather icon="list"></Feather>-->
-            <script>
-                console.log('hello')
-
-            </script>
-        </mdui-button-icon>
-        <mdui-top-app-bar-title>
-            这是收起状态的标题
-            <span slot="label-large">这是展开状态的标题</span>
-        </mdui-top-app-bar-title>
-        <div style="flex-grow: 1"></div>
-        <mdui-button-icon style="color: rgba(var(--mdui-color-primary), 1)">
-            <Feather icon="more-vertical"></Feather>
-        </mdui-button-icon>
-    </mdui-top-app-bar>
-
-    <div class="example-label-large-slot" style="height: 100vh;overflow: auto;">
-        <div style="height: 1000px">正文</div>
-    </div>
-</div>
-
-
-    <script>
-        // import type {NavigationDrawer} from 'mdui';
-        //
-        // const example = document.getElementById('outer') as HTMLDivElement;
-        // const navigationDrawer = example.querySelector("mdui-navigation-drawer") as NavigationDrawer;
-        // const openButton = example.querySelector(".open");
-        // const closeButton = example.querySelector(".close");
-        //
-        // openButton.addEventListener("click", () => navigationDrawer.open = true);
-        // closeButton.addEventListener("click", () => navigationDrawer.open = false);
-    </script>
-
-    <script>
-        import type {NavigationDrawer} from 'mdui';
-
-        const drawer = document.getElementById('main-drawer') as NavigationDrawer;
-
-        const btn =  document.getElementById('main-drawer-open') as HTMLElement;
-        btn.addEventListener("click", () => drawer.open = true);
-        console.log(btn);
-        console.log(drawer);
-    </script>
+<Page title="Test" prose>
+    <h1>My posts</h1>
+    <ul>
+        {posts.map(post => (
+                <li><a href={`/blog/${post.id}`}>{post.data.title}</a></li>
+        ))}
+    </ul>
 </Page>
