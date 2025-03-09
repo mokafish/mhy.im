@@ -7,7 +7,7 @@ tags: []
 cover: null
 author: null
 published: false
-layout: src/layouts/md.astro
+layout: /src/layouts/md.astro
 ---
 #[[
 ## Section

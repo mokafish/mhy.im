@@ -42,4 +42,7 @@ layout: /src/layouts/md.astro
 - `${TIME}`  当前系统时间 
 - `${USER}`  当前用户的系统登录名 
 - `${YEAR}`  当前年份
-Apache Velocity 模板语言已使用
+
+
+[Apache Velocity](https://velocity.apache.org/engine/devel/user-guide.html) 模板语言已使用
+
