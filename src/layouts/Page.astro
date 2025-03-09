@@ -129,14 +129,18 @@ prose_cls = prose ? 'article prose xl:text-xl' : '';
 </script>
 
 <script>
-    function areAllValuesTrue(obj: object) {
+    // 这里报错
+    function areAllValuesTrue(obj: Record<string, boolean>) {
         for (const key in obj) {
+            //Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.<br/>No index signature with a parameter of type 'string' was found on type '{}'.
             if (obj[key] !== true) {
                 return false;
             }
         }
         return true;
     }
+
+    // TODO: bug: 加载过程有输入事件的话，有概率出现文字拉伸现象。
 
     let expect_drawer_width = 360
     if (window.innerWidth < 360) {
@@ -171,6 +175,14 @@ prose_cls = prose ? 'article prose xl:text-xl' : '';
 </script>
 
 <script>
+    // import type '../scripts/global'
+
+    declare global {
+        interface Window {
+            is_mobile: () => boolean;
+        }
+    }
+
     let ex;
     try {
         ex = window.is_mobile();
