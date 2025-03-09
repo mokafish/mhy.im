@@ -1,11 +1,19 @@
 ---
 import utils from "../scripts/utils";
 const data = [
-    {text: '文本工具', color: 'transparent'}
+    {text: '文档合集', href: '/docs'},
+    {text: '文章列表', href: '/posts'},
+    {text: '魔法便笺', href: '/note'},
+    {text: '实用工具', href: '/tool'},
+    {text: '应用沙盒', href: '/asb'},
+    {text: '代码片段', href: '/code'},
+    {text: '娱乐玩具', href: '/toy'},
+    {text: '排版测试', href: '/sandbox'},
+    {text: '临时页面', href: '/test'},
 ]
-for (let i = 0; i <= 10; i++) {
-    data.push(data[0]);
-}
+// for (let i = 0; i <= 10; i++) {
+//     data.push(data[0]);
+// }
 
 
 ---
@@ -20,6 +28,7 @@ for (let i = 0; i <= 10; i++) {
     {data.map((item, i) => (
             <mdui-list-item rounded class="site-menu-item rand-hue grid place-items-center text-center  aspect-square "
                             data-bg="hsl(? 42% 25% / 0.5"
+                            href={item.href}
             >
                 <span class="text-gray-1 dark:text-gray-4 text-center " >{item.text}</span>
             </mdui-list-item>

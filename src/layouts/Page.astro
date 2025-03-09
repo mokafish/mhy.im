@@ -4,9 +4,10 @@ import 'mdui/mdui.css';
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 const {title, prose} = Astro.props
+const className = Astro.props?.class;
 
 let prose_cls = prose ? ' mdui-prose' : '';
-prose_cls = prose ? ' prose xl:text-xl' : '';
+prose_cls = prose ? 'article prose xl:text-xl' : '';
 ---
 
 <html lang="zh-hans">
@@ -108,7 +109,7 @@ prose_cls = prose ? ' prose xl:text-xl' : '';
     <Header title={title}/>
     <mdui-layout-main class="main-article-wrapper h-screen flex flex-col">
         <div id="anchor-page-top"></div>
-        <article class={"article p-4 grow " + prose_cls}>
+        <article class:list={["p-4 grow", prose_cls , className]}>
             <slot/>
         </article>
         <Footer/>

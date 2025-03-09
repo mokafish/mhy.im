@@ -52,6 +52,10 @@ code {
     --my-secondary: hsl(var(--h2) var(--s) var(--l));
 }
 
+.text-act{
+    font-family: var(--font-serif);
+}
+
 /**********************
        文章排版
  *********************/
@@ -100,6 +104,12 @@ code {
     border-radius: var(--mdui-shape-corner-medium);
 }
 
+.article hr {
+    border-radius: var(--mdui-shape-corner-medium);
+    height: 1px;
+    background-color: currentColor;
+    opacity: 0.1;
+}
 
 
 

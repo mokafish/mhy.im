@@ -1,6 +1,6 @@
 ---
 title: 'Markdown + Tailwind'
-layout: ../layouts/main.astro
+layout: ../layouts/md.astro
 ---
 
 <div class="grid place-items-center h-full content-center">

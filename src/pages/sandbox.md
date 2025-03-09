@@ -1,6 +1,6 @@
 ---
 title: 'Markdown 语法沙盒'
-layout: ../layouts/main.astro
+layout: ../layouts/md.astro
 ---
 
 
