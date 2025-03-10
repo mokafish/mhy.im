@@ -10,6 +10,7 @@ tags:
   - test
 author: Charlie
 draft: true
+slug: an 
 ---
 
 Lorem ipsum dolor sit amet consectetur adipisicing elit.

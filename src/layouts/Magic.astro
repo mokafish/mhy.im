@@ -1,0 +1,8 @@
+---
+import Page from "./Page.astro";
+const { data } = Astro.props;
+---
+
+<Page title={data.title} prose>
+	<slot></slot>
+</Page>

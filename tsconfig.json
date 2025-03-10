@@ -3,6 +3,7 @@
   "include": [
     ".astro/types.d.ts",
     "src/scripts/types.d.ts.d.ts",
+    "00_magic/**/*",
     "**/*"
   ],
   "exclude": [

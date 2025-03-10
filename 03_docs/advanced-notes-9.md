@@ -8,6 +8,8 @@ tags:
   - random
   - demo
   - sample
+
+slug: aaa-doc
 ---
 
 Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

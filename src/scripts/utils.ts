@@ -1,3 +1,7 @@
+export function formatPath(pattern: string, params: Record<string, any>) {
+    return pattern.replace(/:(\w+)/g, (_, key) => params[key] ?? '');
+}
+
 export class LinearCongruentialGenerator {
     private seed: number;
 
@@ -31,7 +35,6 @@ export class LinearCongruentialGenerator {
     }
 
 
-
     /**
      * 生成指定范围的随机整数 [min, max]（包含两端）
      * @param min 最小值
@@ -63,4 +66,4 @@ export class LinearCongruentialGenerator {
 // 使用示例
 export const lcg = new LinearCongruentialGenerator(100);
 
-export default { lcg, LinearCongruentialGenerator };
+export default {lcg, LinearCongruentialGenerator, formatPath};
