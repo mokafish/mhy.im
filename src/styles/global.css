@@ -30,12 +30,144 @@
     font-display: swap;   /* 避免文字闪烁，先显示备用字体 */
 }
 
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 100;
+    src: local('JetBrains Mono Thin'),
+    url('/fonts/JetBrainsMono-Thin.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    font-weight: 100;
+    src: local('JetBrains Mono Thin Italic'),
+    url('/fonts/JetBrainsMono-ThinItalic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 200;
+    src: local('JetBrains Mono ExtraLight'),
+    url('/fonts/JetBrainsMono-ExtraLight.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    font-weight: 200;
+    src: local('JetBrains Mono ExtraLight Italic'),
+    url('/fonts/JetBrainsMono-ExtraLightItalic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 300;
+    src: local('JetBrains Mono Light'),
+    url('/fonts/JetBrainsMono-Light.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    font-weight: 300;
+    src: local('JetBrains Mono Light Italic'),
+    url('/fonts/JetBrainsMono-LightItalic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: local('JetBrains Mono Regular'),
+    url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    font-weight: 400;
+    src: local('JetBrains Mono Italic'),
+    url('/fonts/JetBrainsMono-Italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    src: local('JetBrains Mono Medium'),
+    url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    font-weight: 500;
+    src: local('JetBrains Mono Medium Italic'),
+    url('/fonts/JetBrainsMono-MediumItalic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 600;
+    src: local('JetBrains Mono SemiBold'),
+    url('/fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    font-weight: 600;
+    src: local('JetBrains Mono SemiBold Italic'),
+    url('/fonts/JetBrainsMono-SemiBoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 700;
+    src: local('JetBrains Mono Bold'),
+    url('/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    font-weight: 700;
+    src: local('JetBrains Mono Bold Italic'),
+    url('/fonts/JetBrainsMono-BoldItalic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 800;
+    src: local('JetBrains Mono ExtraBold'),
+    url('/fonts/JetBrainsMono-ExtraBold.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    font-weight: 800;
+    src: local('JetBrains Mono ExtraBold Italic'),
+    url('/fonts/JetBrainsMono-ExtraBoldItalic.woff2') format('woff2');
+}
+
+
+
+
 body {
     /*system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"*/
 
     --font-sans:  ChillRound2, ChillRound, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-serif: YouSheShaYuFeiTeJianKangTi, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-    --font-mono:  SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New", ChillRound, "Microsoft YaHei", Roboto, monospace;
+    --font-mono:  'JetBrains Mono', SFMono,Menlo, Monaco, Consolas,"Liberation Mono","Courier New", ChillRound, "Microsoft YaHei", Roboto, monospace;
     font-family: var(--font-sans);
 }
 
@@ -50,15 +182,31 @@ code {
     --h2: 322deg;
     --my-primary: hsl(var(--h) var(--s) var(--l));
     --my-secondary: hsl(var(--h2) var(--s) var(--l));
+
 }
 
 .text-act{
     font-family: var(--font-serif);
 }
 
+.mdui-theme-dark .astro-code,
+.mdui-theme-dark .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    /* Optional, if you also want font styles */
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
 /**********************
        文章排版
  *********************/
+.article .astro-code, .article .astro-code span {
+    background-color: rgb(var(--mdui-color-secondary-container)) !important;
+}
+
+
 .article a {
     color: var(--my-primary);
     text-decoration: none;
@@ -114,9 +262,10 @@ code {
 
 
 
-/**********************
-       应用布局
- *********************/
+
+    /**********************
+           应用布局
+     *********************/
 
 .main-article-wrapper {
     scroll-behavior: smooth;

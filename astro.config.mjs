@@ -7,4 +7,12 @@ export default defineConfig({
 			injectReset: true // or a path to the reset file
 		}),
 	],
+	markdown: {
+		shikiConfig: {
+			themes: {
+				light: 'catppuccin-latte',
+				dark: 'catppuccin-mocha',
+			},
+		},
+	},
 })
