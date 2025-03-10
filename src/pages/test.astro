@@ -2,13 +2,17 @@
 import { getCollection } from 'astro:content';
 import Page from "../layouts/Page.astro";
 const posts = await getCollection('blog');
-console.log(posts);
+// console.log(posts);
 ---
 <Page title="Test" prose>
     <h1>My posts</h1>
     <ul>
         {posts.map(post => (
-                <li><a href={`/blog/${post.id}`}>{post.data.title}</a></li>
+                <li>
+                    <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                    <span>{post.data.date}</span>
+                </li>
         ))}
+
     </ul>
 </Page>

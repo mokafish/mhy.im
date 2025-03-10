@@ -1,0 +1,27 @@
+[
+  {
+    "id": "d1",
+    "breed": "Labrador Retriever",
+    "temperament": ["Friendly", "Outgoing", "Active"]
+  },
+  {
+    "id": "d2",
+    "breed": "German Shepherd",
+    "temperament": ["Loyal", "Courageous", "Intelligent"]
+  },
+  {
+    "id": "d3",
+    "breed": "Poodle",
+    "temperament": ["Smart", "Playful", "Elegant"]
+  },
+  {
+    "id": "d4",
+    "breed": "Beagle",
+    "temperament": ["Curious", "Merry", "Companionable"]
+  },
+  {
+    "id": "d5",
+    "breed": "Bulldog",
+    "temperament": ["Docile", "Willful", "Friendly"]
+  }
+]

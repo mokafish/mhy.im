@@ -26,6 +26,7 @@
     "@unocss/preset-typography": "66.1.0-beta.3",
     "@unocss/preset-wind4": "66.1.0-beta.3",
     "@unocss/reset": "66.1.0-beta.3",
+    "js-yaml": "^4.1.0",
     "tailwindcss": "^4.0.10",
     "unocss": "66.1.0-beta.3"
   }

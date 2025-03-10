@@ -45,6 +45,9 @@ importers:
       '@unocss/reset':
         specifier: 66.1.0-beta.3
         version: 66.1.0-beta.3
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.1.0
       tailwindcss:
         specifier: ^4.0.10
         version: 4.0.10
