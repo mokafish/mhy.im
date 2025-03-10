@@ -1,8 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
+import {getCollection} from 'astro:content';
 import Page from "../layouts/Page.astro";
 const posts = await getCollection('blog');
 // console.log(posts);
+const dogs = await getCollection('dogs');
 ---
 <Page title="Test" prose>
     <h1>My posts</h1>
@@ -15,4 +16,17 @@ const posts = await getCollection('blog');
         ))}
 
     </ul>
+
+    <h1>My Dogs</h1>
+
+    <ul>
+        {dogs.map(dog => (
+                <li>
+                    <b>{dog.data.breed}</b>
+                    / {dog.data.temperament.join(', ')}
+                </li>
+        ))}
+
+    </ul>
+
 </Page>
