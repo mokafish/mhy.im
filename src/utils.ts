@@ -1,8 +1,3 @@
-
-// 使用单元测试框架来测试下面代码，我没有接触过测试，教详细点
-
-
-
 /**
  * 路径树节点类，表示路径树中的一个节点
  */
@@ -18,6 +13,8 @@ export class PathNode {
     /** 当前节点的完整路径 */
     path: string;
 
+    props: Record<string, any>;
+
     /**
      * 构造函数
      * @param parent 父节点
@@ -30,34 +27,40 @@ export class PathNode {
         this.isEnd = false;
         this.name = name;
         this.path = path;
+        this.props = {};
+    }
+
+    grouped(c1,c2 ) {
+        return []
     }
 }
 
 /**
  * 路径树查询系统
  */
-export  class PathQuery {
+export class PathTrie {
     /** 根节点 */
     private readonly root: PathNode;
     /** 路径到节点的映射表 */
-    private nmap: Map<string, PathNode>;
+    public readonly nmap: Map<string, PathNode>;
 
     /**
      * 构造函数
      * @param paths 初始路径数组
      */
-    constructor(paths: string[]) {
+    constructor() {
         this.root = new PathNode(null, '', '/');
         this.nmap = new Map<string, PathNode>();
         this.nmap.set('/', this.root);
-        paths.forEach(path => this.insert(path));
+        // paths.forEach(path => this.insert(path));
     }
 
     /**
      * 插入路径到路径树
      * @param path 要插入的绝对路径（格式：/a/b/c）
+     * @param props 要存储的信息
      */
-    insert(path: string): void {
+    insert(path: string, props: Record<string, any> = {}): void {
         if (path === '/' || path === '') return;
 
         const parts = path.split('/').filter(p => p !== '');
@@ -73,10 +76,13 @@ export  class PathQuery {
                 const newNode = new PathNode(currentNode, part, currentPath);
                 currentNode.children.set(part, newNode);
                 this.nmap.set(currentPath, newNode);
+
             }
+            currentNode.isEnd = false;
             currentNode = currentNode.children.get(part)!;
         }
 
+        currentNode.props = props;
         currentNode.isEnd = true;
         this.nmap.set(path, currentNode);
     }
@@ -86,8 +92,8 @@ export  class PathQuery {
      * @param base 基础路径
      * @returns 子节点名称数组
      */
-    getChildren(base: string): string[] {
-        const node = this.nmap.get(base);
+    getChildren(base: string|null|undefined): string[] {
+        const node = this.nmap.get(base ?? '');
         return node ? Array.from(node.children.keys()) : [];
     }
 
@@ -116,10 +122,10 @@ export  class PathQuery {
      * @param path 输入路径
      * @returns 最后一个节点名称
      */
-    getLastNodeName(path: string): string {
-        const parts = path.split('/').filter(p => p !== '');
-        return parts[parts.length - 1] || '';
-    }
+    // getLastNodeName(path: string): string {
+    //     const parts = path.split('/').filter(p => p !== '');
+    //     return parts[parts.length - 1] || '';
+    // }
 
     /**
      * 修剪路径开头部分（返回完整路径对应的节点）
@@ -176,5 +182,72 @@ export  class PathQuery {
         relativeParts.push(...toParts.slice(commonDepth));
         return relativeParts.join('/') || '.';
     }
+
+    // autoIndex(filter: (abs_path_name: string) => boolean = (x)=>true): PathTrie {
+    //     const apt = new PathTrie();
+    //
+    //     for(const [path, node] of this.nmap){
+    //         if (filter(path)){
+    //
+    //         }
+    //     }
+    //
+    //     return apt
+    // }
 }
 
+
+interface Route {
+    params: Record<string, any>,
+    props: Record<string, any>,
+}
+
+function autoIndex(routes: Array<Route>) {
+    interface Tree {
+        abs_path: string,
+        rel_path: string,
+        children: Array<Tree> | null,
+    }
+
+    let tree: Array<Tree> = []
+
+    let auto_index_routes: Array<Route> = []
+    for (let route of routes) {
+        let path: string = route?.params?.path
+        if (path) {
+            // ...
+            // 部分逻辑大概是这样
+            // 原始index路由标记为'originalIndex'的同时，也要在输出 route.props 输出 children
+            //
+            // /a/index
+            // /a/b
+            // /a/c
+            // /a/d
+            // route.props.children = [
+            //     // /a/b
+            //     // /a/c
+            //     // /a/d
+            // ]
+            if (path.endsWith('/index')) {
+                route.props.type = 'originalIndex';
+                route.props.children = [
+                    //...
+                ] as Array<Tree>
+            } else if ('children' !== null) {
+                auto_index_routes.push({
+                    params: {path: {abs_path: ""}?.abs_path + '/index'},
+                    props: {
+                        type: 'autoIndex',
+                        children: [
+                            // ...
+                        ] as Array<Tree>
+                    },
+                })
+            }
+            // ...
+        }
+
+    }
+
+    return [...routes, ...auto_index_routes]
+}

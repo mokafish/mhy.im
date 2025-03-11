@@ -1,9 +1,12 @@
 ---
 import {collections} from '../content.config';
 import magic from "../magic";
+import {PathTrie, PathNode} from "../utils";
 import {getCollection, render} from 'astro:content';
 import Page from "../layouts/Page.astro";
+import {objectPositions} from "@unocss/preset-wind4/colors";
 // 1. Generate a new path for every collection entry
+
 export async function getStaticPaths() {
     const catalog = []
     const routes = []
@@ -13,80 +16,36 @@ export async function getStaticPaths() {
         // const posts = await getCollection('blog');
     }
 
+    const pt = new PathTrie()
     for (let coll of catalog) {
         for (let entry of coll) {
-            routes.push({
-                params: {path: magic.fmt.permalink(entry),},
-                props: {entry, type: 'entry'},
-            })
+            let path = magic.fmt.permalink(entry)
+            let props = {entry, type: 'entry'}
+            pt.insert(path, props)
         }
     }
 
-    // 如
-    // path: '/a/b/c/d'
-    // path: '/a/b'
-    // /a 和 /a/b/c没有index
-    // /a/b 有index
-    // /a/b/c/d
-    // ref_route: Route;
+    let tm = new Map()
 
-    // 这个函数怎么实现 (route对象只能访问.params.path )
-
-    // 这个代码怎么写啊
-    interface Route {
-        params: Record<string, any>,
-        props: Record<string, any>,
-    }
-
-    function autoIndex(routes: Array<Route>) {
-        interface Tree {
-            abs_path: string,
-            rel_path: string,
-            children: Array<Tree> | null,
-        }
-
-        let tree: Array<Tree> = []
-
-        let auto_index_routes: Array<Route> = []
-        for (let route of routes) {
-            let path: string = route?.params?.path
-            if (path) {
-                // ...
-                // 部分逻辑大概是这样
-                // 原始index路由标记为'originalIndex'的同时，也要在输出 route.props 输出 children
-                //
-                // /a/index
-                // /a/b
-                // /a/c
-                // /a/d
-                // route.props.children = [
-                //     // /a/b
-                //     // /a/c
-                //     // /a/d
-                // ]
-                if (path.endsWith('/index')) {
-                    route.props.type = 'originalIndex';
-                    route.props.children = [
-                        //...
-                    ] as Array<Tree>
-                } else if ('children' !== null) {
-                    auto_index_routes.push({
-                        params: {path: t.abs_path + '/index'},
-                        props: {
-                            type: 'autoIndex',
-                            children: [
-                                // ...
-                            ] as Array<Tree>
-                        },
-                    })
-                }
-                // ...
+    for (let [path, pn] of pt.nmap) {
+        if (pn.isEnd) {
+            if (pn.name == 'index') {
+                pn.props.type = 'index'
+                pn.props.children = pn?.parent?.children //.filter(p => p.name == 'index')
             }
 
+            routes.push({
+                params: {path},
+                props: pn.props,
+            })
         }
 
-        return [...routes, ...auto_index_routes]
+        if (magic.autoindex(path)) {
+
+        }
     }
+    // const apt = pt.autoIndex(magic.autoindex)
+
 
     return routes;
     // return posts.map(post => ({
@@ -95,10 +54,43 @@ export async function getStaticPaths() {
     // }));
 }
 // 2. For your template, you can get the entry directly from the prop
-const {entry} = Astro.props;
+
+interface Props {
+    entry: any,
+    type: string,
+    children: Map<string, PathNode>,
+    // children: object,
+}
+
+const {entry, type, children} = Astro.props;
+
+console.log(children)
 const {Content} = await render(entry);
 ---
 
 <Page title={entry.data?.title ?? entry.id} prose>
     <Content/>
+    <p>
+        <em>{type}</em>
+    </p>
+
+    <!--{children.get('a')}-->
+
+    {type === 'index' && (() => {
+        let list = []
+        for (let [k, v] of children) {
+            list.push(
+                    <li>{k}</li>
+            )
+        }
+        return <ul>{list}</ul>
+    })}
+
+    <!--{type === 'index' && children.map((v)=>(-->
+    <!--    <li key={v.id}>-->
+    <!--        <a>-->
+    <!--            {v}-->
+    <!--        </a>-->
+    <!--    </li>-->
+    <!--))}-->
 </Page>
