@@ -20,9 +20,9 @@ const frontMatterSchema = z.object({
     date: z.coerce.date().default(new Date()),
     categories: z.array(z.string()).default([]),
     tags: z.array(z.string()).default([]),
-    cover: z.string().default(''),
-    author: authorSchema.default(''),
-    draft: z.boolean().default(false),
+    cover: z.coerce.string().default(''),
+    author:z.nullable(authorSchema).default(''),
+    draft: z.coerce.boolean().default(false),
     slug: z.coerce.string().optional(),
     updated_at: z.coerce.date().optional(),
 }).passthrough(); // 允许未声明的字段

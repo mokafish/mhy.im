@@ -6,7 +6,8 @@
     "dev": "astro dev --host 0.0.0.0 --port 3000",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "jest"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.1.0",
@@ -22,14 +23,20 @@
     "./node_modules/mdui/web-types.zh-cn.json"
   ],
   "devDependencies": {
+    "@babel/preset-typescript": "^7.26.0",
     "@tailwindcss/typography": "^0.5.16",
+    "@types/jest": "^29.5.14",
     "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.13.10",
     "@types/web": "^0.0.208",
     "@unocss/preset-typography": "66.1.0-beta.3",
     "@unocss/preset-wind4": "66.1.0-beta.3",
     "@unocss/reset": "66.1.0-beta.3",
+    "jest": "^29.7.0",
     "js-yaml": "^4.1.0",
     "tailwindcss": "^4.0.10",
+    "ts-jest": "^29.2.6",
+    "typescript": "^5.8.2",
     "unocss": "66.1.0-beta.3"
   }
 }
