@@ -18,9 +18,10 @@ interface Entry {
 
 
 export default {
+    autoindex: (prefix: string) => prefix !== '/blog',
     fmt: {
-        date: (date: Date, entry:Entry): string => format(date, "yyyy/M/d"),
-        permalink: (entry:Entry):string => `/${entry.collection}/${entry.id}`,
-        editlink: (entry:Entry):string => `/edit?file=${entry.filePath}`,
+        date: (date: Date, entry: Entry): string => format(date, "yyyy/M/d"),
+        permalink: (entry: Entry): string => `${entry.collection}/${entry.id}`.replace(/\/index$/, ''),
+        editlink: (entry: Entry): string => `/edit?file=${entry.filePath}`,
     }
 }
