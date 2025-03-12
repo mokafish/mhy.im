@@ -1,3 +1,19 @@
 ---
-$END$
+import Page from "../layouts/Page.astro";
+const {title = 'Magic Too Powerful'} = Astro.props
 ---
+
+<Page title={title} prose class="text-center text-act">
+    <h2 class="text-4xl mt-16">
+        {title}
+    </h2>
+    <p>
+        <slot>
+            This magic is too powerful and cannot be cast now.
+        </slot>
+    </p>
+    <hr/>
+    <p text-xl>
+        MagicBook/1.0.0
+    </p>
+</Page>

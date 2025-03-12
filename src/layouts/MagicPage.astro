@@ -1,8 +1,14 @@
 ---
+import magic from "../magic";
 import Page from "./Page.astro";
-const { data } = Astro.props;
+const { id, data, collection, filePath } = Astro.props.entry;
+
+// console.log( Astro.props)
 ---
 
-<Page title={data.title} prose>
-	<slot></slot>
+<Page title={data?.title} prose>
+	<div>
+		{data?.date && magic.fmt.date(data.date!)}
+	</div>
+	<slot />
 </Page>

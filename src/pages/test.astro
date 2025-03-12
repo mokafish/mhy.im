@@ -2,10 +2,11 @@
 import {getCollection} from 'astro:content';
 import Page from "../layouts/Page.astro";
 import magic from "../magic";
-const posts = await getCollection('blog');
-const docs = await getCollection('docs');
+import type {MagicEntry} from "../friendship";
+const posts = await getCollection('blog') as MagicEntry[];
+const docs = await getCollection('docs')  as MagicEntry[];
 // console.log(posts);
-const dogs = await getCollection('dogs');
+const dogs = await getCollection('dogs')  as MagicEntry[];
 ---
 <Page title="Test" prose>
     <h1>My posts</h1>
@@ -13,7 +14,7 @@ const dogs = await getCollection('dogs');
         {posts.map(entry => (
                 <li>
                     <a href={magic.fmt.permalink(entry)}>{entry.data.title}</a>
-                    <span>{magic.fmt.date(entry.data.date, entry)}</span>
+                    <span>{magic.fmt.date(entry.data.date!, entry)}</span>
                 </li>
         ))}
 

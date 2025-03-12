@@ -1,49 +1,72 @@
 ---
-import {collections} from '../content.config';
+import { collections } from "../content.config";
 import magic from "../magic";
-import {MagicTrie, PathNode} from "../friendship";
-import type {MagicEntry} from "../friendship";
-import {getCollection, render} from 'astro:content';
+import { MagicTrie, PathNode } from "../friendship";
+import type { MagicEntry } from "../friendship";
+import { getCollection, render } from "astro:content";
 import Page from "../layouts/Page.astro";
+import MagicPage from "../layouts/MagicPage.astro";
+import ErrorPage from "../layouts/ErrorPage.astro";
+import MagicIndex from "../layouts/MagicIndex.astro";
 // 1. Generate a new path for every collection entry
 
 export async function getStaticPaths() {
-    const catalog:MagicEntry[][] = []
-    const routes = []
+    const catalog: MagicEntry[][] = [];
+    const routes = [];
     for (let coll in collections) {
         // @ts-ignore
-        catalog.push(await getCollection(coll))
+        catalog.push(await getCollection(coll));
         // const posts = await getCollection('blog');
     }
 
-    const mt = new MagicTrie()
+    const mt = new MagicTrie();
     for (let coll of catalog) {
         for (let entry of coll) {
-            let path = magic.fmt.permalink(entry)
-            let props = {entry, type: 'entry'}
-            mt.insert(path, props)
+            let path = magic.fmt.permalink(entry);
+            let props = { entry, type: "entry" };
+            mt.insert(path, props);
         }
     }
 
     for (let [path, pn] of mt.nmap) {
-        if (pn.isEnd) {
-            if (pn.name == 'index') {
-                pn.props.type = 'index'
-                pn.props.list = pn?.parent?.grouped() //.filter(p => p.name == 'index')
-            }
+        // if (pn.isEnd) {
+        //     if (pn.name == 'index') {
+        //         path = pn.parent!.path
+        //         pn.props.type = 'index'
+        //         pn.props.list = pn.parent!.grouped() //.filter(p => p.name == 'index')
+        //     }
+        //
+        //     routes.push({
+        //         params: {path},
+        //         props: pn.props,
+        //     })
+        // }else if (pn.name) {
+        //     pn.children.has('index')
+        // }
 
+        if (!pn.name) continue;
+
+        if (pn.isEnd && pn.name !== "index") {
             routes.push({
-                params: {path},
+                params: { path },
                 props: pn.props,
-            })
-        }
-
-        if (magic.autoindex(path)) {
-
+            });
+        } else if (pn.children.has("index")) {
+            pn.props = pn.children!.get("index")!.props;
+            pn.props.type = "index";
+            pn.props.list = pn.grouped();
+            routes.push({
+                params: { path },
+                props: pn.props,
+            });
+        } else if (magic.autoindex(path)) {
+            routes.push({
+                params: { path },
+                props: { type: "autoindex", list: pn.grouped() },
+            });
         }
     }
     // const apt = mt.autoIndex(magic.autoindex)
-
 
     return routes;
     // return posts.map(post => ({
@@ -54,50 +77,79 @@ export async function getStaticPaths() {
 // 2. For your template, you can get the entry directly from the prop
 
 interface Props {
-    entry: MagicEntry,
-    type: string,
-    list: PathNode[][],
+    entry: MagicEntry;
+    type: string;
+    list: PathNode[][];
     // children: Map<string, PathNode>,
     // children: object,
 }
 
-const {entry, type, list} = Astro.props;
+const { entry, type, list } = Astro.props;
 
 // console.log(children)
-// @ts-ignore
-const {Content} = await render(entry);
+let Content;
+if (entry) {
+    // @ts-ignore
+    let _r = await render(entry);
+    // console.log(_r)
+    Content = _r.Content;
+}
 ---
 
-<Page title={entry.data?.title ?? entry.id} prose>
-    <Content/>
-    <p>
-        <em>{type}</em>
-    </p>
+<!--
+{type === 'entry' &&
+<MagicPage {...Astro.props}>
+    {Content &&
+            <Content/>}
+</MagicPage>}
+-->{
+    type === "entry" ? (
+        <MagicPage {...Astro.props}>{Content && <Content />}</MagicPage>
+    ) : type === "index" ? (
+        <MagicIndex {...Astro.props}>{Content && <Content />}</MagicIndex>
+    ) : type === "autoindex" ? (
+        <MagicIndex {...Astro.props} />
+    ) : (
+        <ErrorPage />
+    )
+}
 
-    {type === 'index' && list[0].map((v) => (
-            <li>{v.name}</li>
-    ))}
-    {type === 'index' && list[1].map((v) => (
-            <li>{v.name}</li>
-    ))}
+<!--{()=>{-->
 
-    <!--{children.get('a')}-->
+<!--    return-->
+<!--    <ErrorPage/>-->
+<!--    }}-->
 
-    <!--{type === 'index' && (() => {-->
-    <!--    let list = []-->
-    <!--    for (let [k, v] of children) {-->
-    <!--        list.push(-->
-    <!--                <li>{k}</li>-->
-    <!--        )-->
-    <!--    }-->
-    <!--    return <ul>{list}</ul>-->
-    <!--})}-->
+<!--<Page title={entry.data?.title ?? entry.id} prose>-->
+<!--    <Content/>-->
+<!--    <p>-->
+<!--        <em>{type}</em>-->
+<!--    </p>-->
 
-    <!--{type === 'index' && children.map((v)=>(-->
-    <!--    <li key={v.id}>-->
-    <!--        <a>-->
-    <!--            {v}-->
-    <!--        </a>-->
-    <!--    </li>-->
-    <!--))}-->
-</Page>
+<!--    {type === 'index' && list[0].map((v) => (-->
+<!--            <li>{v.name}</li>-->
+<!--    ))}-->
+<!--    {type === 'index' && list[1].map((v) => (-->
+<!--            <li>{v.name}</li>-->
+<!--    ))}-->
+
+<!--{children.get('a')}-->
+
+<!--{type === 'index' && (() => {-->
+<!--    let list = []-->
+<!--    for (let [k, v] of children) {-->
+<!--        list.push(-->
+<!--                <li>{k}</li>-->
+<!--        )-->
+<!--    }-->
+<!--    return <ul>{list}</ul>-->
+<!--})}-->
+
+<!--{type === 'index' && children.map((v)=>(-->
+<!--    <li key={v.id}>-->
+<!--        <a>-->
+<!--            {v}-->
+<!--        </a>-->
+<!--    </li>-->
+<!--))}-->
+<!--</Page>-->

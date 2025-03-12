@@ -41,12 +41,25 @@ interface MagicData {
 //     collection: string;
 //     // [key: string]: any;
 // }
+
+// {
+//     id: string;
+//     body?: string | undefined;
+//     collection: "dogs";
+//     data: {
+//         id: string;
+//         breed: string;
+//         temperament: string[];
+//     };
+//     rendered?: RenderedContent | undefined;
+//     filePath?: string | undefined;
+// }[]
 export type  MagicEntry = {
     id: string;
-    data: MagicData;
+    data: MagicData | any;
     body?: string;
     filePath: string;
-    digest: string;
+    digest?: string;
     rendered?: MagicRendered;
     collection: string;
 } & AnyEntryMap;
@@ -104,7 +117,7 @@ export class PathNode {
     grouped(): PathNode[][] {
         let children_grouped: PathNode[][] = [[], []]
         this.children.forEach((cn: PathNode) => {
-            if (cn.isEnd) {
+            if (cn.isEnd && cn.name !== 'index') {
                 children_grouped[1].push(cn)
             } else {
                 children_grouped[0].push(cn)

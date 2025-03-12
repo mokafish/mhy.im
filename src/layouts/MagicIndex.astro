@@ -1,15 +1,40 @@
 ---
-import magic from '../magic';
+import magic from "../magic";
 import Page from "./Page.astro";
-const { id, data , collection , filePath} = Astro.props.entry;
+import { PathNode } from "../friendship";
+import type { MagicEntry } from "../friendship";
+import IndexList from "../components/IndexList.astro";
+import IndexItem from "../components/IndexItem.astro";
+
+// interface Props {
+//     entry: MagicEntry;
+//     type: string;
+//     list: PathNode[][];
+// }
+
+// const { id, data, collection , filePath} = Astro.props.entry;
+const list:PathNode[][] = Astro.props.list;
 
 // console.log( Astro.props)
-
 ---
 
-<Page title={data?.title} prose>
-	<div>
-		{data?.date && magic.fmt.date(data.date!)}
-	</div>
-	<slot></slot>
+<Page title={'title'} prose>
+    <div>
+        <em>index</em>
+    </div>
+    <slot />
+    <p>
+        <IndexList>
+            {
+                list[0].map((item, i:Number) => (
+                    <IndexItem text={item.name} href={item.path}  icon="dir" />
+                ))
+            }
+            {
+                list[1].map((item, i:Number) => (
+                    <IndexItem text={item.props.entry.data.title} href={item.path} icon="file" />
+                ))
+            }
+        </IndexList>
+    </p>
 </Page>
