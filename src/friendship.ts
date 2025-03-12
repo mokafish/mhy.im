@@ -1,3 +1,70 @@
+import type {AnyEntryMap, z} from "astro:content";
+
+interface MagicMetadata {
+    headings: any[];
+    localImagePaths: any[];
+    remoteImagePaths: any[];
+    frontmatter: Record<string, any>;
+    imagePaths: any[];
+    [key: string]: any;
+}
+
+interface MagicRendered {
+    html?: string;
+    metadata?: MagicMetadata;
+    [key: string]: any;
+
+}
+
+interface MagicData {
+    title?: string;
+    description?: string;
+    date?: Date;
+    categories?: string[];
+    tags?: string[];
+    cover?: string;
+    author?: string;
+    draft?: boolean;
+    slug?: string;
+    permalink?: string;
+    updated_at?: Date;
+    [key: string]: any;
+}
+
+// export interface  MagicEntry extends AnyEntryMap {
+//     id: string;
+//     data: MagicData;
+//     body?: string;
+//     filePath: string;
+//     digest: string;
+//     rendered?: MagicRendered;
+//     collection: string;
+//     // [key: string]: any;
+// }
+export type  MagicEntry = {
+    id: string;
+    data: MagicData;
+    body?: string;
+    filePath: string;
+    digest: string;
+    rendered?: MagicRendered;
+    collection: string;
+} & AnyEntryMap;
+
+// export type  MagicEntry  = AnyEntryMap
+
+// export interface  MagicEntry extends AnyEntryMap {
+//     id: string;
+//     data: MagicData;
+//     body?: string;
+//     filePath: string;
+//     digest: string;
+//     rendered?: MagicRendered;
+//     collection: string;
+//     [key: string]: any;
+// }
+
+
 /**
  * 路径树节点类，表示路径树中的一个节点
  */
@@ -30,15 +97,28 @@ export class PathNode {
         this.props = {};
     }
 
-    grouped(c1,c2 ) {
-        return []
+    /**
+     * 获取分组后的子节点
+     * @returns 分组后的子节点数组 [[有子节点],[无子节点]]
+     */
+    grouped(): PathNode[][] {
+        let children_grouped: PathNode[][] = [[], []]
+        this.children.forEach((cn: PathNode) => {
+            if (cn.isEnd) {
+                children_grouped[1].push(cn)
+            } else {
+                children_grouped[0].push(cn)
+            }
+        })
+
+        return children_grouped
     }
 }
 
 /**
  * 路径树查询系统
  */
-export class PathTrie {
+export class MagicTrie {
     /** 根节点 */
     private readonly root: PathNode;
     /** 路径到节点的映射表 */
@@ -92,7 +172,7 @@ export class PathTrie {
      * @param base 基础路径
      * @returns 子节点名称数组
      */
-    getChildren(base: string|null|undefined): string[] {
+    getChildren(base: string | null | undefined): string[] {
         const node = this.nmap.get(base ?? '');
         return node ? Array.from(node.children.keys()) : [];
     }
@@ -183,8 +263,8 @@ export class PathTrie {
         return relativeParts.join('/') || '.';
     }
 
-    // autoIndex(filter: (abs_path_name: string) => boolean = (x)=>true): PathTrie {
-    //     const apt = new PathTrie();
+    // autoIndex(filter: (abs_path_name: string) => boolean = (x)=>true): MagicTrie {
+    //     const apt = new MagicTrie();
     //
     //     for(const [path, node] of this.nmap){
     //         if (filter(path)){
