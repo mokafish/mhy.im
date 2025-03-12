@@ -23,7 +23,7 @@ export async function getStaticPaths() {
     for (let coll of catalog) {
         for (let entry of coll) {
             let path = magic.fmt.permalink(entry);
-            let props = { entry, type: "entry" };
+            let props = { entry, type: "entry", data: entry.data };
             mt.insert(path, props);
         }
     }
@@ -46,33 +46,66 @@ export async function getStaticPaths() {
 
         if (!pn.name) continue;
 
-        if (pn.isEnd && pn.name !== "index") {
+        if(path.includes('index')){
+            console.log(path);
+        }
+
+        if (!pn.hasChildren() && pn.name !== "index") {
+            // if(path == '/docs/sub'){
+            //     console.log('????? '+path);
+            //     console.log('????? '+pn.name);
+            //     console.log('????? '+pn.children);
+            //     console.log('????? '+pn.children.size);
+            // }
             routes.push({
                 params: { path },
                 props: pn.props,
             });
         } else if (pn.children.has("index")) {
+            // console.log(path);
+
             pn.props = pn.children!.get("index")!.props;
             pn.props.type = "index";
             pn.props.list = pn.grouped();
+            // console.log(pn);
+
             routes.push({
                 params: { path },
                 props: pn.props,
             });
         } else if (magic.autoindex(path)) {
-            routes.push({
-                params: { path },
-                props: { type: "autoindex", list: pn.grouped() },
-            });
+            // pn.props = {
+            //     type: "autoindex",
+            //     data: { title: `${pn.name} (auto index)` },
+            //     list: pn.grouped(),
+            // };
+            // routes.push({
+            //     params: { path },
+            //     props: pn.props,
+            // });
         }
     }
-    // const apt = mt.autoIndex(magic.autoindex)
 
+    print_routes(routes);
     return routes;
-    // return posts.map(post => ({
-    //     params: { id: post.id },
-    //     props: { post },
-    // }));
+}
+
+export function print_routes(routes: any[]) {
+    for (let r of routes) {
+        let path = r.params.path as string;
+        let type = r.props.type;
+        let data = r.props.data;
+        let has_entry = r.props.entry ? true : false;
+        let has_list = r.props.list ? true : false;
+        if (path == ("/docs/sub/index"))
+            console.log({
+                path,
+                type,
+                data,
+                has_entry,
+                has_list,
+            });
+    }
 }
 // 2. For your template, you can get the entry directly from the prop
 

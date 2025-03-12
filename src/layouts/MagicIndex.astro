@@ -12,27 +12,28 @@ import IndexItem from "../components/IndexItem.astro";
 //     list: PathNode[][];
 // }
 
-// const { id, data, collection , filePath} = Astro.props.entry;
+
+const { type, data } = Astro.props;
 const list:PathNode[][] = Astro.props.list;
 
 // console.log( Astro.props)
 ---
 
-<Page title={'title'} prose>
+<Page title={data?.title} prose>
     <div>
-        <em>index</em>
+        <em>{type}</em>
     </div>
     <slot />
     <p>
         <IndexList>
             {
                 list[0].map((item, i:Number) => (
-                    <IndexItem text={item.name} href={item.path}  icon="dir" />
+                    <IndexItem text={item?.props?.data?.title || '(no title)'} href={item.path}  icon="dir" />
                 ))
             }
             {
                 list[1].map((item, i:Number) => (
-                    <IndexItem text={item.props.entry.data.title} href={item.path} icon="file" />
+                    '--'// <IndexItem text={item.props.entry.data.title} href={item.path} icon="file" />
                 ))
             }
         </IndexList>

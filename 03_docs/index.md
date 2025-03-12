@@ -1,5 +1,5 @@
 ---
-title: Index Of doc
+title: Docs Catalog
 date: '2024-03-23T04:12:17.230Z'
 description: Sample description 3
 tags:

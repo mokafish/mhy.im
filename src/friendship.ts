@@ -1,4 +1,4 @@
-import type {AnyEntryMap, z} from "astro:content";
+import type { AnyEntryMap, z } from "astro:content";
 
 interface MagicMetadata {
     headings: any[];
@@ -54,7 +54,7 @@ interface MagicData {
 //     rendered?: RenderedContent | undefined;
 //     filePath?: string | undefined;
 // }[]
-export type  MagicEntry = {
+export type MagicEntry = {
     id: string;
     data: MagicData | any;
     body?: string;
@@ -86,14 +86,15 @@ export class PathNode {
     children: Map<string, PathNode>;
     /** 父节点 */
     parent: PathNode | null;
-    /** 当前节点是否为某条路径的终点 */
-    isEnd: boolean;
     /** 节点名称 */
     name: string;
     /** 当前节点的完整路径 */
     path: string;
 
     props: Record<string, any>;
+
+    /** 当前节点是否为某条路径的终点 */
+    // isEnd: boolean;
 
     /**
      * 构造函数
@@ -104,12 +105,20 @@ export class PathNode {
     constructor(parent: PathNode | null, name: string, path: string) {
         this.children = new Map();
         this.parent = parent;
-        this.isEnd = false;
+        // this.isEnd = false;
         this.name = name;
         this.path = path;
         this.props = {};
     }
 
+
+    /**
+     * 判断是否有子节点
+     * @returns 是否存在子节点
+     */
+    hasChildren(): boolean {
+        return this.children.size > 0
+    }
     /**
      * 获取分组后的子节点
      * @returns 分组后的子节点数组 [[有子节点],[无子节点]]
@@ -117,10 +126,10 @@ export class PathNode {
     grouped(): PathNode[][] {
         let children_grouped: PathNode[][] = [[], []]
         this.children.forEach((cn: PathNode) => {
-            if (cn.isEnd && cn.name !== 'index') {
-                children_grouped[1].push(cn)
-            } else {
+            if (cn.hasChildren()) {
                 children_grouped[0].push(cn)
+            } else {
+                children_grouped[1].push(cn)
             }
         })
 
@@ -171,12 +180,12 @@ export class MagicTrie {
                 this.nmap.set(currentPath, newNode);
 
             }
-            currentNode.isEnd = false;
+            // currentNode.isEnd = false;
             currentNode = currentNode.children.get(part)!;
         }
 
         currentNode.props = props;
-        currentNode.isEnd = true;
+        // currentNode.isEnd = true;
         this.nmap.set(path, currentNode);
     }
 
@@ -261,7 +270,7 @@ export class MagicTrie {
             commonDepth < fromParts.length &&
             commonDepth < toParts.length &&
             fromParts[commonDepth] === toParts[commonDepth]
-            ) {
+        ) {
             commonDepth++;
         }
 
@@ -328,7 +337,7 @@ function autoIndex(routes: Array<Route>) {
                 ] as Array<Tree>
             } else if ('children' !== null) {
                 auto_index_routes.push({
-                    params: {path: {abs_path: ""}?.abs_path + '/index'},
+                    params: { path: { abs_path: "" }?.abs_path + '/index' },
                     props: {
                         type: 'autoIndex',
                         children: [
