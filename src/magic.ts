@@ -1,27 +1,13 @@
 import {format} from "date-fns/format";
+import type {MagicEntry} from "./friendship.ts";
 
-// (alias) getCollection<"dogs", {
-//     id: string;
-//     body?: string;
-//     collection: "dogs";
-//     data: InferEntrySchema<"dogs">;
-//     rendered?: RenderedContent;
-//     filePath?: string;
-//  }
-interface Entry {
-    id: string;
-    data: Record<string, any>;
-    body?: string;
-    collection: string;
-    filePath?: string;
-}
 
 
 export default {
     autoindex: (prefix: string) => prefix !== '/blog',
     fmt: {
-        date: (date: Date, entry: Entry): string => format(date, "yyyy/M/d"),
-        permalink: (entry: Entry): string => `${entry.collection}/${entry.id}`, //.replace(/\/index$/, ''),
-        editlink: (entry: Entry): string => `/edit?file=${entry.filePath}`,
+        date: (date: Date, entry: MagicEntry): string => format(date, "yyyy/M/d"),
+        permalink: (entry: MagicEntry): string => `${entry.collection}/${entry.id}`, //.replace(/\/index$/, ''),
+        editlink: (entry: MagicEntry): string => `/edit?file=${entry.filePath}`,
     }
 }
