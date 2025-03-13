@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev --host 0.0.0.0 --port 3000",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "astro preview --host 0.0.0.0 --port 8080",
     "astro": "astro",
     "test": "jest"
   },

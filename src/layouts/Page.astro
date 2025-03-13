@@ -14,7 +14,7 @@ prose_cls = prose ? 'article prose xl:text-xl' : '';
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=4, shrink-to-fit=no"/>
-    <!--<meta name="renderer" content="webkit"/>-->
+    <meta name="renderer" content="webkit"/>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
     <title>{title}</title>
@@ -71,7 +71,7 @@ prose_cls = prose ? 'article prose xl:text-xl' : '';
 
     </style>
 
-    <script type="text/javascript">
+    <script type="text/javascript" is:inline>
         console.debug('document start load...');
         const dark_cls = "mdui-theme-dark";
         const light_cls = "mdui-theme-light";
@@ -115,22 +115,37 @@ prose_cls = prose ? 'article prose xl:text-xl' : '';
         <Footer/>
     </mdui-layout-main>
 </mdui-layout>
-<script>
+
+<script is:inline type="text/javascript">
+    let ex;
+    try {
+        ex = window.is_mobile();
+    } catch (e) {
+        console.error(e);
+    }
+    console.log('is_mobile: ' + ex);
+
+    const drawer = document.getElementById('sidebar');
+    if (ex) {
+        drawer.removeAttribute('open');
+    }
+</script>
+
+<script is:inline type="text/javascript">
     /** 防止过度滚动  *******
      * 目标锚点太靠近页底的话，跳转时，浏览器会把整个页面抬上去，
      * 使锚点靠近视口顶部，导致页面出现向上平移现象，
      * 页面部分被裁掉， 页面底部与视口底部出现大量空白。
      */
-    document.querySelector('.main-layout')?.addEventListener('scroll', (e: Event) => {
+    document.querySelector('.main-layout')?.addEventListener('scroll', (e) => {
         console.log('Prevent excessive scrolling');
         e.preventDefault();
-        (e.target as HTMLElement).scrollTo(0, 0);
+        e.target.scrollTo(0, 0);
     });
 </script>
 
-<script>
-    // 这里报错
-    function areAllValuesTrue(obj: Record<string, boolean>) {
+<script  is:inline type="text/javascript">
+    function areAllValuesTrue(obj) {
         for (const key in obj) {
             //Element implicitly has an 'any' type because expression of type 'string' can't be used to index type '{}'.<br/>No index signature with a parameter of type 'string' was found on type '{}'.
             if (obj[key] !== true) {
@@ -140,23 +155,25 @@ prose_cls = prose ? 'article prose xl:text-xl' : '';
         return true;
     }
 
-    // TODO: bug: 加载过程有输入事件的话，有概率出现文字拉伸现象。
+    // NOTE: bug: 加载过程有输入事件的话，有概率出现文字拉伸现象。
+    // NOTE: 这是 via 或 Android System Webview 的问题。
 
-    let expect_drawer_width = 360
+    let expect_sidebar_width = 360
     if (window.innerWidth < 360) {
-        expect_drawer_width = window.innerWidth * 0.85;
+        expect_sidebar_width = window.innerWidth * 0.85;
     }
     const ok_flags = {
-        drawer: false,
+        sidebar: false,
     }
 
     function fixFOUC() {
-        if (!ok_flags.drawer) {
+        if (!ok_flags.sidebar) {
 
-            const drawer = document.getElementById('main-drawer') as HTMLElement;
-            const w = drawer.clientWidth
-            ok_flags.drawer = w <= expect_drawer_width;
-            // ok_flags.drawer =  w <= 360;
+            const sidebar = document.getElementById('sidebar');
+            const w = sidebar.clientWidth
+            // console.log(w);
+            ok_flags.sidebar = !sidebar.hasAttribute('open') || w > 0 && w <= expect_sidebar_width;
+            // ok_flags.sidebar =  w <= 360;
         }
     }
 
@@ -174,27 +191,7 @@ prose_cls = prose ? 'article prose xl:text-xl' : '';
     }, 100)
 </script>
 
-<script>
 
-    declare global {
-        interface Window {
-            is_mobile: () => boolean;
-        }
-    }
-
-    let ex;
-    try {
-        ex = window.is_mobile();
-    } catch (e) {
-        console.error(e);
-    }
-    console.log('is_mobile: ' + ex);
-
-    const drawer = document.getElementById('main-drawer') as HTMLElement;
-    if (ex) {
-        drawer.removeAttribute('open');
-    }
-</script>
 
 </body>
 </html>

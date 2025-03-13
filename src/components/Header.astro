@@ -1,7 +1,7 @@
 ---
 import Feather from "./Feather.astro";
 import SiteMenu from "./SiteMenu.astro";
-const {title} = Astro.props
+const { title } = Astro.props;
 ---
 
 <style>
@@ -9,43 +9,43 @@ const {title} = Astro.props
         background-color: rgb(var(--mdui-color-secondary-container));
         scrollbar-width: none;
     }
-    #main-drawer::part(panel)::-webkit-scrollbar {
+    #sidebar::part(panel)::-webkit-scrollbar {
         display: none;
     }
 
-    .profile-infobox {
+    .sidebar-header {
         background-color: rgba(var(--mdui-color-primary), 0.2);
-        background-image: url("/profile_background.jpg");
+        background-image: url("/sidebar-header.jpg");
         background-size: cover;
     }
 
-    .profile-avatar {
+    .sidebar-avatar {
         color: #617cfb;
         outline: solid 2px currentColor;
     }
 
-    #main-drawer {
-        box-shadow: var(--mdui-elevation-level2);
+    .sidebar-header-content {
+        background-color: 
     }
 
+    #sidebar {
+        box-shadow: var(--mdui-elevation-level2);
+    }
 
     .app-bar {
         background-color: rgb(var(--mdui-color-primary-container));
     }
 
-    .drawer-tabs::part(container) {
+    .sidebar-tabs::part(container) {
         background-color: transparent;
     }
-
-
 </style>
 {/** 抽屉栏 */}
-<mdui-navigation-drawer id="main-drawer"
-                         open close-on-esc close-on-overlay-click
-
->
-    <div class="profile-infobox w-full aspect-video">
-        <div class="w-full aspect-video bg-[#0000007f] relative flex flex-col mdui-theme-dark">
+<mdui-navigation-drawer id="sidebar" open close-on-esc close-on-overlay-click>
+    <div class="sidebar-header mdui-theme-dark aspect-video">
+        <div
+            class="bg-[#0000007f] h-full relative flex flex-col"
+        >
             <div class="flex p-3">
                 <div class="grow"></div>
                 <!--<mdui-button-icon>-->
@@ -56,8 +56,11 @@ const {title} = Astro.props
                 <!--mid-->
             </div>
             <div class="p-8 flex items-center">
-                <mdui-button-icon href="/profile" class="w-[3em] h-[3em] profile-avatar ">
-                    <img class="w-full h-full m-4" src="/avatar.png"/>
+                <mdui-button-icon
+                    href="/profile"
+                    class="w-[3em] h-[3em] sidebar-avatar"
+                >
+                    <img class="w-full h-full m-4" src="/avatar.png" />
                 </mdui-button-icon>
 
                 <mdui-button href="/" variant="text" class="h-full">
@@ -66,11 +69,10 @@ const {title} = Astro.props
                     </mdui-top-app-bar-title>
                 </mdui-button>
             </div>
-
         </div>
     </div>
 
-    <mdui-tabs  value="tab-menu" full-width class="drawer-tabs">
+    <mdui-tabs value="tab-menu" full-width class="sidebar-tabs">
         <mdui-tab value="tab-menu">菜单</mdui-tab>
         <mdui-tab value="tab-catalog">合集</mdui-tab>
         <mdui-tab value="tab-toc">本页目录</mdui-tab>
@@ -80,80 +82,81 @@ const {title} = Astro.props
         </mdui-tab-panel>
         <mdui-tab-panel slot="panel" value="tab-catalog">
             <mdui-list>
-                <mdui-list-item>
-                    合集目录
-                </mdui-list-item>
+                <mdui-list-item> 合集目录 </mdui-list-item>
             </mdui-list>
         </mdui-tab-panel>
         <mdui-tab-panel slot="panel" value="tab-toc">
             <mdui-list>
-                <mdui-list-item>
-                    本页内容
-                </mdui-list-item>
+                <mdui-list-item> 本页内容 </mdui-list-item>
             </mdui-list>
         </mdui-tab-panel>
     </mdui-tabs>
-
-
-
-
-
 </mdui-navigation-drawer>
 
 {/** 顶栏 */}
-<mdui-top-app-bar variant="medium"
-                  scroll-behavior="shrink elevate"
-                  scroll-target=".main-article-wrapper"
-                  class="p-3 position-relative app-bar"
+<mdui-top-app-bar
+    variant="medium"
+    scroll-behavior="shrink elevate"
+    scroll-target=".main-article-wrapper"
+    class="p-3 position-relative app-bar"
 >
-    <mdui-button-icon id="btn-open-drawer" style="color: rgba(var(--mdui-color-primary), 1)">
-        <Feather icon="menu"></Feather>
+    <mdui-button-icon
+        id="btn-open-drawer"
+        style="color: rgba(var(--mdui-color-primary), 1)"
+    >
+        <Feather icon="menu" />
     </mdui-button-icon>
     <mdui-top-app-bar-title>
         {title}
         <h1 slot="label-large">{title}</h1>
     </mdui-top-app-bar-title>
     <div style="flex-grow: 1"></div>
-    <mdui-button-icon id="btn-toggle-theme" style="color: rgba(var(--mdui-color-primary), 1)">
-        <Feather icon="moon" class="icon-toggle-theme-dark"></Feather>
-        <Feather icon="sun" class="icon-toggle-theme-light"></Feather>
+    <mdui-button-icon
+        id="btn-toggle-theme"
+        style="color: rgba(var(--mdui-color-primary), 1)"
+    >
+        <Feather icon="moon" class="icon-toggle-theme-dark" />
+        <Feather icon="sun" class="icon-toggle-theme-light" />
     </mdui-button-icon>
-    <mdui-button-icon id="btn-more" style="color: rgba(var(--mdui-color-primary), 1)">
-        <Feather icon="more-vertical"></Feather>
+    <mdui-button-icon
+        id="btn-more"
+        style="color: rgba(var(--mdui-color-primary), 1)"
+    >
+        <Feather icon="more-vertical" />
     </mdui-button-icon>
 
     <script>
-        import type {NavigationDrawer, Button} from 'mdui';
-        import {setTheme, getTheme, setColorScheme} from 'mdui';
+        import type { NavigationDrawer, Button } from "mdui";
+        import { setTheme, getTheme, setColorScheme } from "mdui";
 
-        const drawer = document.getElementById('main-drawer') as NavigationDrawer;
+        const sidebar_drawer = document.getElementById(
+            "sidebar",
+        ) as NavigationDrawer;
 
-        drawer.addEventListener('open', (event) => {
-            console.log('drawer opening ')
-        })
+        sidebar_drawer.addEventListener("open", (event) => {
+            console.log("drawer opening ");
+        });
 
+        const btn = document.getElementById("btn-open-drawer") as HTMLElement;
+        btn.addEventListener(
+            "click",
+            () => (sidebar_drawer.open = !sidebar_drawer.open),
+        );
 
-        const btn = document.getElementById('btn-open-drawer') as HTMLElement;
-        btn.addEventListener("click", () => drawer.open = !drawer.open);
-
-        const btn2 = document.getElementById('btn-toggle-theme') as HTMLElement;
+        const btn2 = document.getElementById("btn-toggle-theme") as HTMLElement;
         btn2.addEventListener("click", () => {
-            if (getTheme() === 'dark') {
-                setTheme('light');
-                localStorage.setItem('theme', 'light');
+            if (getTheme() === "dark") {
+                setTheme("light");
+                localStorage.setItem("theme", "light");
                 // setColorScheme('#ffb6c1')
                 // setColorScheme('#9824e5');
             } else {
-                setTheme('dark');
-                localStorage.setItem('theme', 'dark');
+                setTheme("dark");
+                localStorage.setItem("theme", "dark");
 
                 // setColorScheme('#ff9fcf')
                 // setColorScheme('#9824e5');
             }
         });
-
-
     </script>
-
-
 </mdui-top-app-bar>
