@@ -151,9 +151,9 @@ export class MagicTrie {
      * @param paths 初始路径数组
      */
     constructor() {
-        this.root = new PathNode(null, '', '/');
+        this.root = new PathNode(null, '', '');
         this.nmap = new Map<string, PathNode>();
-        this.nmap.set('/', this.root);
+        this.nmap.set('', this.root);
         // paths.forEach(path => this.insert(path));
     }
 
@@ -170,8 +170,8 @@ export class MagicTrie {
         let currentPath = this.root.path;
 
         for (const part of parts) {
-            currentPath = currentPath === '/'
-                ? `/${part}`
+            currentPath = currentPath === ''
+                ? `${part}`
                 : `${currentPath}/${part}`;
 
             if (!currentNode.children.has(part)) {

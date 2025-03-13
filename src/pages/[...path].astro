@@ -8,85 +8,76 @@ import Page from "../layouts/Page.astro";
 import MagicPage from "../layouts/MagicPage.astro";
 import ErrorPage from "../layouts/ErrorPage.astro";
 import MagicIndex from "../layouts/MagicIndex.astro";
+import { object } from "astro:schema";
 // 1. Generate a new path for every collection entry
 
 export async function getStaticPaths() {
     const catalog: MagicEntry[][] = [];
     const routes = [];
+    const mt = new MagicTrie();
+
     for (let coll in collections) {
         // @ts-ignore
         catalog.push(await getCollection(coll));
+        
         // const posts = await getCollection('blog');
     }
 
-    const mt = new MagicTrie();
     for (let coll of catalog) {
         for (let entry of coll) {
             let path = magic.fmt.permalink(entry);
+            // console.log(path);
+
             let props = { entry, type: "entry", data: entry.data };
             mt.insert(path, props);
         }
     }
 
     for (let [path, pn] of mt.nmap) {
-        // if (pn.isEnd) {
-        //     if (pn.name == 'index') {
-        //         path = pn.parent!.path
-        //         pn.props.type = 'index'
-        //         pn.props.list = pn.parent!.grouped() //.filter(p => p.name == 'index')
-        //     }
-        //
-        //     routes.push({
-        //         params: {path},
-        //         props: pn.props,
-        //     })
-        // }else if (pn.name) {
-        //     pn.children.has('index')
-        // }
-
         if (!pn.name) continue;
 
-        if(path.includes('index')){
-            console.log(path);
-        }
-
         if (!pn.hasChildren() && pn.name !== "index") {
-            // if(path == '/docs/sub'){
-            //     console.log('????? '+path);
-            //     console.log('????? '+pn.name);
-            //     console.log('????? '+pn.children);
-            //     console.log('????? '+pn.children.size);
-            // }
+            /** 是文件，且不是index */
             routes.push({
                 params: { path },
                 props: pn.props,
             });
         } else if (pn.children.has("index")) {
-            // console.log(path);
-
+            /** 是目录，且里面有index*/
             pn.props = pn.children!.get("index")!.props;
             pn.props.type = "index";
             pn.props.list = pn.grouped();
-            // console.log(pn);
-
             routes.push({
                 params: { path },
                 props: pn.props,
             });
-        } else if (magic.autoindex(path)) {
-            // pn.props = {
-            //     type: "autoindex",
-            //     data: { title: `${pn.name} (auto index)` },
-            //     list: pn.grouped(),
-            // };
-            // routes.push({
-            //     params: { path },
-            //     props: pn.props,
-            // });
+        } else if (pn.hasChildren() && Object.keys(pn.props).length > 0) {
+            /** 是目录，带有目录信息 */
+            pn.props.type = "index";
+            pn.props.list = pn.grouped();
+            routes.push({
+                params: { path },
+                props: pn.props,
+            });
+        } else if (pn.hasChildren() && magic.autoindex(path)) {
+            /** 是目录，且里面没有index，不带目录信息，开启了自动索引 */
+            pn.props = {
+                type: "autoindex",
+                data: { title: `${pn.name} (auto index)` },
+                list: pn.grouped(),
+            };
+            routes.push({
+                params: { path },
+                props: pn.props,
+            });
         }
+
+        pn.props.magicProps = {
+            title: pn.props?.data?.title || pn.name,
+        };
     }
 
-    print_routes(routes);
+    // print_routes(routes);
     return routes;
 }
 
@@ -97,7 +88,7 @@ export function print_routes(routes: any[]) {
         let data = r.props.data;
         let has_entry = r.props.entry ? true : false;
         let has_list = r.props.list ? true : false;
-        if (path == ("/docs/sub/index"))
+        if (path == "/docs/sub/index")
             console.log({
                 path,
                 type,
@@ -128,14 +119,7 @@ if (entry) {
     Content = _r.Content;
 }
 ---
-
-<!--
-{type === 'entry' &&
-<MagicPage {...Astro.props}>
-    {Content &&
-            <Content/>}
-</MagicPage>}
--->{
+{
     type === "entry" ? (
         <MagicPage {...Astro.props}>{Content && <Content />}</MagicPage>
     ) : type === "index" ? (
@@ -146,43 +130,3 @@ if (entry) {
         <ErrorPage />
     )
 }
-
-<!--{()=>{-->
-
-<!--    return-->
-<!--    <ErrorPage/>-->
-<!--    }}-->
-
-<!--<Page title={entry.data?.title ?? entry.id} prose>-->
-<!--    <Content/>-->
-<!--    <p>-->
-<!--        <em>{type}</em>-->
-<!--    </p>-->
-
-<!--    {type === 'index' && list[0].map((v) => (-->
-<!--            <li>{v.name}</li>-->
-<!--    ))}-->
-<!--    {type === 'index' && list[1].map((v) => (-->
-<!--            <li>{v.name}</li>-->
-<!--    ))}-->
-
-<!--{children.get('a')}-->
-
-<!--{type === 'index' && (() => {-->
-<!--    let list = []-->
-<!--    for (let [k, v] of children) {-->
-<!--        list.push(-->
-<!--                <li>{k}</li>-->
-<!--        )-->
-<!--    }-->
-<!--    return <ul>{list}</ul>-->
-<!--})}-->
-
-<!--{type === 'index' && children.map((v)=>(-->
-<!--    <li key={v.id}>-->
-<!--        <a>-->
-<!--            {v}-->
-<!--        </a>-->
-<!--    </li>-->
-<!--))}-->
-<!--</Page>-->
