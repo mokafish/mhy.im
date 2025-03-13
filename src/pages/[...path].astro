@@ -22,6 +22,7 @@ export async function getStaticPaths() {
         // @ts-ignore
         for (entry of await getCollection(coll)) {
             let path = magic.fmt.permalink(entry);
+            
             let props = { entry, type: "entry", data: entry.data };
             mt.insert(path, props);
         }
