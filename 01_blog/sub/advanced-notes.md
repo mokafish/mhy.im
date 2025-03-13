@@ -1,9 +1,10 @@
 ---
-title: Advanced Notes
+title: 高级笔记
 date: '2024-07-13T16:17:29.709Z'
 categories:
   - Documentation
   - Lifestyle
+slug: advanced-notes-9
 ---
 
 Duis aute irure dolor in reprehenderit in voluptate velit esse.

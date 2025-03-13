@@ -10,6 +10,7 @@ import ErrorPage from "../layouts/ErrorPage.astro";
 import MagicIndex from "../layouts/MagicIndex.astro";
 import { object } from "astro:schema";
 // 1. Generate a new path for every collection entry
+// const posts = await getCollection('blog');
 
 export async function getStaticPaths() {
     const catalog: MagicEntry[][] = [];
@@ -17,21 +18,23 @@ export async function getStaticPaths() {
     const mt = new MagicTrie();
 
     for (let coll in collections) {
+        let entry: MagicEntry;
         // @ts-ignore
-        catalog.push(await getCollection(coll));
-        
-        // const posts = await getCollection('blog');
-    }
-
-    for (let coll of catalog) {
-        for (let entry of coll) {
+        for (entry of await getCollection(coll)) {
             let path = magic.fmt.permalink(entry);
-            // console.log(path);
-
             let props = { entry, type: "entry", data: entry.data };
             mt.insert(path, props);
         }
+        // catalog.push(await getCollection(coll));
     }
+
+    // for (let coll of catalog) {
+    //     for (let entry of coll) {
+    //         let path = magic.fmt.permalink(entry);
+    //         let props = { entry, type: "entry", data: entry.data };
+    //         mt.insert(path, props);
+    //     }
+    // }
 
     for (let [path, pn] of mt.nmap) {
         if (!pn.name) continue;
@@ -119,6 +122,7 @@ if (entry) {
     Content = _r.Content;
 }
 ---
+
 {
     type === "entry" ? (
         <MagicPage {...Astro.props}>{Content && <Content />}</MagicPage>
