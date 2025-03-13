@@ -1,33 +1,45 @@
 @font-face {
     font-family: 'YouSheShaYuFeiTeJianKangTi';
     src: url('/fonts/YouSheShaYuFeiTeJianKangTi.ttf') format('truetype');
-    font-weight: normal;  /* 默认字重 */
-    font-style: normal;   /* 默认样式 */
-    font-display: swap;   /* 避免文字闪烁，先显示备用字体 */
+    font-weight: normal;
+    /* 默认字重 */
+    font-style: normal;
+    /* 默认样式 */
+    font-display: swap;
+    /* 避免文字闪烁，先显示备用字体 */
 }
 
 @font-face {
     font-family: 'ChillRound';
     src: url('/fonts/ChillRoundFBold.ttf') format('truetype');
-    font-weight: bold;  /* 粗体字重 */
-    font-style: normal; /* 默认样式 */
-    font-display: swap; /* 避免文字闪烁，先显示备用字体 */
+    font-weight: bold;
+    /* 粗体字重 */
+    font-style: normal;
+    /* 默认样式 */
+    font-display: swap;
+    /* 避免文字闪烁，先显示备用字体 */
 }
 
 @font-face {
     font-family: 'ChillRound';
     src: url('/fonts/ChillRoundFRegular.ttf') format('truetype');
-    font-weight: normal;  /* 默认字重 */
-    font-style: normal;   /* 默认样式 */
-    font-display: swap;   /* 避免文字闪烁，先显示备用字体 */
+    font-weight: normal;
+    /* 默认字重 */
+    font-style: normal;
+    /* 默认样式 */
+    font-display: swap;
+    /* 避免文字闪烁，先显示备用字体 */
 }
 
 @font-face {
     font-family: 'ChillRound2';
     src: url('/fonts/ChillRoundM.ttf') format('truetype');
-    font-weight: normal;  /* 默认字重 */
-    font-style: normal;   /* 默认样式 */
-    font-display: swap;   /* 避免文字闪烁，先显示备用字体 */
+    font-weight: normal;
+    /* 默认字重 */
+    font-style: normal;
+    /* 默认样式 */
+    font-display: swap;
+    /* 避免文字闪烁，先显示备用字体 */
 }
 
 
@@ -36,7 +48,7 @@
     font-style: normal;
     font-weight: 100;
     src: local('JetBrains Mono Thin'),
-    url('/fonts/JetBrainsMono-Thin.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-Thin.woff2') format('woff2');
 }
 
 @font-face {
@@ -44,7 +56,7 @@
     font-style: italic;
     font-weight: 100;
     src: local('JetBrains Mono Thin Italic'),
-    url('/fonts/JetBrainsMono-ThinItalic.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-ThinItalic.woff2') format('woff2');
 }
 
 @font-face {
@@ -52,7 +64,7 @@
     font-style: normal;
     font-weight: 200;
     src: local('JetBrains Mono ExtraLight'),
-    url('/fonts/JetBrainsMono-ExtraLight.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-ExtraLight.woff2') format('woff2');
 }
 
 @font-face {
@@ -60,7 +72,7 @@
     font-style: italic;
     font-weight: 200;
     src: local('JetBrains Mono ExtraLight Italic'),
-    url('/fonts/JetBrainsMono-ExtraLightItalic.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-ExtraLightItalic.woff2') format('woff2');
 }
 
 @font-face {
@@ -68,7 +80,7 @@
     font-style: normal;
     font-weight: 300;
     src: local('JetBrains Mono Light'),
-    url('/fonts/JetBrainsMono-Light.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-Light.woff2') format('woff2');
 }
 
 @font-face {
@@ -76,7 +88,7 @@
     font-style: italic;
     font-weight: 300;
     src: local('JetBrains Mono Light Italic'),
-    url('/fonts/JetBrainsMono-LightItalic.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-LightItalic.woff2') format('woff2');
 }
 
 @font-face {
@@ -84,7 +96,7 @@
     font-style: normal;
     font-weight: 400;
     src: local('JetBrains Mono Regular'),
-    url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -92,7 +104,7 @@
     font-style: italic;
     font-weight: 400;
     src: local('JetBrains Mono Italic'),
-    url('/fonts/JetBrainsMono-Italic.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-Italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -100,7 +112,7 @@
     font-style: normal;
     font-weight: 500;
     src: local('JetBrains Mono Medium'),
-    url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-Medium.woff2') format('woff2');
 }
 
 @font-face {
@@ -108,7 +120,7 @@
     font-style: italic;
     font-weight: 500;
     src: local('JetBrains Mono Medium Italic'),
-    url('/fonts/JetBrainsMono-MediumItalic.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-MediumItalic.woff2') format('woff2');
 }
 
 @font-face {
@@ -116,7 +128,7 @@
     font-style: normal;
     font-weight: 600;
     src: local('JetBrains Mono SemiBold'),
-    url('/fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
 }
 
 @font-face {
@@ -124,7 +136,7 @@
     font-style: italic;
     font-weight: 600;
     src: local('JetBrains Mono SemiBold Italic'),
-    url('/fonts/JetBrainsMono-SemiBoldItalic.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-SemiBoldItalic.woff2') format('woff2');
 }
 
 @font-face {
@@ -132,7 +144,7 @@
     font-style: normal;
     font-weight: 700;
     src: local('JetBrains Mono Bold'),
-    url('/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-Bold.woff2') format('woff2');
 }
 
 @font-face {
@@ -140,7 +152,7 @@
     font-style: italic;
     font-weight: 700;
     src: local('JetBrains Mono Bold Italic'),
-    url('/fonts/JetBrainsMono-BoldItalic.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-BoldItalic.woff2') format('woff2');
 }
 
 @font-face {
@@ -148,7 +160,7 @@
     font-style: normal;
     font-weight: 800;
     src: local('JetBrains Mono ExtraBold'),
-    url('/fonts/JetBrainsMono-ExtraBold.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-ExtraBold.woff2') format('woff2');
 }
 
 @font-face {
@@ -156,7 +168,7 @@
     font-style: italic;
     font-weight: 800;
     src: local('JetBrains Mono ExtraBold Italic'),
-    url('/fonts/JetBrainsMono-ExtraBoldItalic.woff2') format('woff2');
+        url('/fonts/JetBrainsMono-ExtraBoldItalic.woff2') format('woff2');
 }
 
 
@@ -165,9 +177,9 @@
 body {
     /*system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"*/
 
-    --font-sans:  ChillRound2, ChillRound, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-sans: ChillRound2, ChillRound, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-serif: YouSheShaYuFeiTeJianKangTi, ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-    --font-mono:  'JetBrains Mono', SFMono,Menlo, Monaco, Consolas,"Liberation Mono","Courier New", ChillRound, "Microsoft YaHei", Roboto, monospace;
+    --font-mono: 'JetBrains Mono', SFMono, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", ChillRound, "Microsoft YaHei", Roboto, monospace;
     font-family: var(--font-sans);
 }
 
@@ -185,7 +197,7 @@ code {
 
 }
 
-.text-act{
+.text-act {
     font-family: var(--font-serif);
 }
 
@@ -202,7 +214,8 @@ code {
 /**********************
        文章排版
  *********************/
-.article .astro-code, .article .astro-code span {
+.article .astro-code,
+.article .astro-code span {
     background-color: rgb(var(--mdui-color-secondary-container)) !important;
 }
 
@@ -212,7 +225,10 @@ code {
     text-decoration: none;
 }
 
-.article a:hover , .article a:focus , .article u,  .article ins{
+.article a:hover,
+.article a:focus,
+.article u,
+.article ins {
     text-decoration: underline;
     text-underline-mode: normal;
     text-underline-position: under;
@@ -243,7 +259,8 @@ code {
     text-decoration: none;
 }
 
-.article strong, .article b {
+.article strong,
+.article b {
     /*background: hsl(var(--h) var(--s) var(--l) / 0.2);*/
 }
 
@@ -263,20 +280,27 @@ code {
 
 
 
-    /**********************
-           应用布局
-     *********************/
+/**********************
+    应用布局
+*********************/
+mdui-icon ::slotted(svg), svg {
+    fill: none;
+}
 
 .main-article-wrapper {
     scroll-behavior: smooth;
-    background-color: rgba(var(--mdui-color-secondary-container),0.5);
+    background-color: rgba(var(--mdui-color-secondary-container), 0.5);
     /* 有点bug, 会出现类似 body {padding-top: -128px} 的现象 */
     /*scroll-padding-top: 128px;*/
 }
 
 /** 防止锚点被应用栏遮挡 */
-.main-article-wrapper h1::before, .main-article-wrapper h2::before, .main-article-wrapper h3::before,
-.main-article-wrapper h4::before, .main-article-wrapper h5::before, .main-article-wrapper h6::before {
+.main-article-wrapper h1::before,
+.main-article-wrapper h2::before,
+.main-article-wrapper h3::before,
+.main-article-wrapper h4::before,
+.main-article-wrapper h5::before,
+.main-article-wrapper h6::before {
     content: "";
     display: block;
     height: 128px;
@@ -284,7 +308,7 @@ code {
     visibility: hidden;
 }
 
-pre > code {
+pre>code {
     display: block;
     overflow-x: auto;
     padding: 0;
@@ -298,10 +322,11 @@ pre > code {
 /*}*/
 
 /** 主题切换按钮样式 */
-.mdui-theme-dark .icon-toggle-theme-dark{
+.mdui-theme-dark .icon-toggle-theme-dark {
     display: none
 }
-.mdui-theme-dark .icon-toggle-theme-light{
+
+.mdui-theme-dark .icon-toggle-theme-light {
     display: inline;
 }
 
@@ -315,11 +340,11 @@ html:not(.mdui-theme-dark) .icon-toggle-theme-dark {
 
 /** 选中文本 */
 ::selection {
-    background-color: #617cfb55 ;
+    background-color: #617cfb55;
     color: currentColor;
 }
 
-.hello{
+.hello {
     padding: 4px;
     color: #66ccff;
 }

@@ -3,9 +3,7 @@
  */
 import type { AnyEntryMap, z } from "astro:content";
 import { max } from "date-fns";
-
-
-const TIME_0 = new Date(0)
+import magic, {TIME_0} from "./magic";
 
 interface MagicMetadata {
     headings: any[];

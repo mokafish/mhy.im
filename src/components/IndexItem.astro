@@ -1,8 +1,12 @@
 ---
-const { text, href, icon } = Astro.props;
+import Feather from "./Feather.astro";
+const { text, href, icon, desc } = Astro.props;
 ---
 
-<li>
-    <em>{icon}</em>
-    <a href={href}>{text}<slot /></a>
-</li>
+
+<mdui-list-item href={href} rounded alignment="center" description={desc}>
+    {text}<slot />
+    <mdui-icon slot="icon">
+        <Feather icon={icon} fill="none" />
+    </mdui-icon>
+</mdui-list-item>

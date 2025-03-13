@@ -12,9 +12,8 @@ import IndexItem from "../components/IndexItem.astro";
 //     list: PathNode[][];
 // }
 
-
 const { type, data, magicProps } = Astro.props;
-const list:PathNode[][] = Astro.props.list;
+const list: PathNode[][] = Astro.props.list;
 
 // console.log( Astro.props)
 ---
@@ -27,13 +26,23 @@ const list:PathNode[][] = Astro.props.list;
     <p>
         <IndexList>
             {
-                list[0].map((item, i:Number) => (
-                    <IndexItem text={(item?.props?.magicProps?.title || '(no title)') + item?.stat?.mtime} href={'/'+item.path}  icon="dir" />
+                list[0].map((item, i: Number) => (
+                    <IndexItem
+                        text={item?.props?.magicProps?.title || "(no title)"}
+                        href={magic.absURL(item.path)}
+                        desc={magic.formatDateTime(item?.stat?.mtime)}
+                        icon="folder"
+                    />
                 ))
             }
             {
-                list[1].map((item, i:Number) => (
-                    <IndexItem text={(item?.props?.magicProps?.title || '(no title)') + item?.stat?.mtime} href={'/'+item.path} icon="file" />
+                list[1].map((item, i: Number) => (
+                    <IndexItem
+                        text={item?.props?.magicProps?.title || "(no title)"}
+                        href={magic.absURL(item.path)}
+                        desc={magic.formatDateTime(item?.stat?.mtime)}
+                        icon="file"
+                    />
                 ))
             }
         </IndexList>
