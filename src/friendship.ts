@@ -1,5 +1,11 @@
+/** 
+ * Magic core
+ */
 import type { AnyEntryMap, z } from "astro:content";
 import { max } from "date-fns";
+
+
+const TIME_0 = new Date(0)
 
 interface MagicMetadata {
     headings: any[];
@@ -78,13 +84,6 @@ export type MagicEntry = {
 //     [key: string]: any;
 // }
 
-/**
- * 路径树查询系统 对下面的系统加入一个功能
- * PathNode 加入一个字段 stat = {ctime, mtime, total_size, total_childrens}
- * 并在 insert 时添加节点中（由参数参数输入(ctime:Date=new Date(0), mtime:Date=new Date(0), size=0)），
- * (父节点自动计算 total_childrens  自动累加，total_siz ,也要同步ctime和 mtime)
- * 代码只需要写出stat的类型声明、初始化和insert函数部分，保持原来的逻辑不要动，并详细讲解实现思路；
- */
 
 /**
  * 路径树节点类，表示路径树中的一个节点
@@ -93,8 +92,10 @@ export type MagicEntry = {
 export type MagicStat = {
     ctime: Date;
     mtime: Date;
-    total_size: number;
-    total_childrens: number;
+    size: number;
+    count: number;
+    owner: string;
+    permission:number;
 }
 
 export class PathNode {
@@ -125,10 +126,12 @@ export class PathNode {
         this.path = path;
         this.props = {};
         this.stat = {
-            ctime: new Date(0),
-            mtime: new Date(0),
-            total_size: 0, // 初始化为0，由父节点累加
-            total_childrens: 0,
+            ctime: TIME_0,
+            mtime: TIME_0,
+            size: 0, // 初始化为0，由父节点累加
+            count: 0,
+            owner: 'root',
+            permission: 600,
         };
     }
 
@@ -186,11 +189,14 @@ export class MagicTrie {
     insert(path: string, props: Record<string, any> = {}): void {
         if (path === '/' || path === '') return;
         const leaf_data = (props.data as MagicData)
-        const leaf_stat:MagicStat = {
-            ctime: new Date(leaf_data?.date||0),
-            mtime: new Date(leaf_data?.updated_at||0),
-            total_childrens:0,
-            total_size:6, // NOTE: 临时值
+        const _ctime = new Date(leaf_data?.date || TIME_0)
+        const leaf_stat: MagicStat = {
+            ctime: _ctime,
+            mtime: new Date(leaf_data?.updated_at || _ctime),
+            count: 0,
+            size: 6, // NOTE: 临时值
+            owner: 'root',
+            permission: 600,
         }
         const parts = path.split('/').filter(p => p !== '');
         let currentNode = this.root;
@@ -208,10 +214,11 @@ export class MagicTrie {
                 this.nmap.set(currentPath, newNode);
             }
 
-            currentNode.stat.ctime = max([currentNode.stat.ctime,leaf_stat.ctime])
-            currentNode.stat.mtime = max([currentNode.stat.mtime,leaf_stat.mtime])
-            currentNode.stat.total_size += leaf_stat.total_size
-            currentNode.stat.total_childrens += 1
+
+            currentNode.stat.ctime = max([currentNode.stat.ctime, leaf_stat.ctime])
+            currentNode.stat.mtime = max([currentNode.stat.mtime, leaf_stat.mtime])
+            currentNode.stat.size += leaf_stat.size
+            currentNode.stat.count += 1
 
             currentNode = currentNode.children.get(part)!;
         }

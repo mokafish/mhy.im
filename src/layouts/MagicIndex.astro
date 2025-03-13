@@ -28,12 +28,12 @@ const list:PathNode[][] = Astro.props.list;
         <IndexList>
             {
                 list[0].map((item, i:Number) => (
-                    <IndexItem text={item?.props?.magicProps?.title || '(no title)'} href={'/'+item.path}  icon="dir" />
+                    <IndexItem text={(item?.props?.magicProps?.title || '(no title)') + item?.stat?.mtime} href={'/'+item.path}  icon="dir" />
                 ))
             }
             {
                 list[1].map((item, i:Number) => (
-                    <IndexItem text={item?.props?.magicProps?.title || '(no title)'} href={'/'+item.path} icon="file" />
+                    <IndexItem text={(item?.props?.magicProps?.title || '(no title)') + item?.stat?.mtime} href={'/'+item.path} icon="file" />
                 ))
             }
         </IndexList>
