@@ -36,29 +36,7 @@ interface MagicData {
     [key: string]: any;
 }
 
-// export interface  MagicEntry extends AnyEntryMap {
-//     id: string;
-//     data: MagicData;
-//     body?: string;
-//     filePath: string;
-//     digest: string;
-//     rendered?: MagicRendered;
-//     collection: string;
-//     // [key: string]: any;
-// }
 
-// {
-//     id: string;
-//     body?: string | undefined;
-//     collection: "dogs";
-//     data: {
-//         id: string;
-//         breed: string;
-//         temperament: string[];
-//     };
-//     rendered?: RenderedContent | undefined;
-//     filePath?: string | undefined;
-// }[]
 export type MagicEntry = {
     id: string;
     data: MagicData | any;
@@ -68,31 +46,6 @@ export type MagicEntry = {
     rendered?: MagicRendered;
     collection: string;
 } & AnyEntryMap;
-
-// export type  MagicEntry  = AnyEntryMap
-
-// export interface  MagicEntry extends AnyEntryMap {
-//     id: string;
-//     data: MagicData;
-//     body?: string;
-//     filePath: string;
-//     digest: string;
-//     rendered?: MagicRendered;
-//     collection: string;
-//     [key: string]: any;
-// }
-
-
-
-// export type MagicStat = {
-//     ctime: Date;
-//     mtime: Date;
-//     size: number;
-//     count: number;
-//     owner: string;
-//     permission: number;
-// }
-
 
 /**
  * 路径树节点类，表示路径树中的一个节点
@@ -234,8 +187,6 @@ export class PathNode {
             (a, b) => b[sort_by].getTime() - a[sort_by].getTime() :
             (a, b) => a[sort_by].getTime() - b[sort_by].getTime();
     }
-
-
 }
 
 /**
@@ -295,7 +246,6 @@ export class MagicTrie {
                 this.nmap.set(currentPath, newNode);
             }
 
-
             currentNode.ctime = max([currentNode.ctime, ctime])
             currentNode.mtime = max([currentNode.mtime, mtime])
             currentNode.size += size
@@ -305,7 +255,6 @@ export class MagicTrie {
         }
 
         currentNode.props = props;
-        // currentNode.isEnd = true;
         this.nmap.set(path, currentNode);
     }
 
@@ -405,71 +354,10 @@ export class MagicTrie {
         return relativeParts.join('/') || '.';
     }
 
-    // autoIndex(filter: (abs_path_name: string) => boolean = (x)=>true): MagicTrie {
-    //     const apt = new MagicTrie();
-    //
-    //     for(const [path, node] of this.nmap){
-    //         if (filter(path)){
-    //
-    //         }
-    //     }
-    //
-    //     return apt
-    // }
 }
 
 
 interface Route {
     params: Record<string, any>,
     props: Record<string, any>,
-}
-
-function autoIndex(routes: Array<Route>) {
-    interface Tree {
-        abs_path: string,
-        rel_path: string,
-        children: Array<Tree> | null,
-    }
-
-    let tree: Array<Tree> = []
-
-    let auto_index_routes: Array<Route> = []
-    for (let route of routes) {
-        let path: string = route?.params?.path
-        if (path) {
-            // ...
-            // 部分逻辑大概是这样
-            // 原始index路由标记为'originalIndex'的同时，也要在输出 route.props 输出 children
-            //
-            // /a/index
-            // /a/b
-            // /a/c
-            // /a/d
-            // route.props.children = [
-            //     // /a/b
-            //     // /a/c
-            //     // /a/d
-            // ]
-            if (path.endsWith('/index')) {
-                route.props.type = 'originalIndex';
-                route.props.children = [
-                    //...
-                ] as Array<Tree>
-            } else if ('children' !== null) {
-                auto_index_routes.push({
-                    params: { path: { abs_path: "" }?.abs_path + '/index' },
-                    props: {
-                        type: 'autoIndex',
-                        children: [
-                            // ...
-                        ] as Array<Tree>
-                    },
-                })
-            }
-            // ...
-        }
-
-    }
-
-    return [...routes, ...auto_index_routes]
 }
