@@ -13,7 +13,6 @@ import { object } from "astro:schema";
 // const posts = await getCollection('blog');
 
 export async function getStaticPaths() {
-    const catalog: MagicEntry[][] = [];
     const routes = [];
     const mt = new MagicTrie();
 
@@ -26,16 +25,7 @@ export async function getStaticPaths() {
             let props = { entry, type: "entry", data: entry.data };
             mt.insert(path, props);
         }
-        // catalog.push(await getCollection(coll));
     }
-
-    // for (let coll of catalog) {
-    //     for (let entry of coll) {
-    //         let path = magic.fmt.permalink(entry);
-    //         let props = { entry, type: "entry", data: entry.data };
-    //         mt.insert(path, props);
-    //     }
-    // }
 
     for (let [path, pn] of mt.nmap) {
         if (!pn.name) continue;

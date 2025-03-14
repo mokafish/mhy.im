@@ -2,13 +2,17 @@
 import magic from "../magic";
 import Page from "./Page.astro";
 const { id, data, collection, filePath } = Astro.props.entry;
-
+const self = Astro.props.self;
 // console.log( Astro.props)
+const _ctime = magic.formatDate(self.ctime)
+const _mtime = magic.formatDate(self.mtime)
+const has_mtime = _ctime !== _mtime
 ---
 
 <Page title={data?.title} prose>
 	<div>
-		{data?.date && magic.fmt.date(data.date!)}
+		{_ctime}
+		{has_mtime && <em>{_mtime} 更新</em>}
 	</div>
 	<slot />
 </Page>
