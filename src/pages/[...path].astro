@@ -50,7 +50,7 @@ export async function getStaticPaths() {
             /** 是目录，且里面有index*/
             pn.props = pn.children!.get("index")!.props;
             pn.props.type = "index";
-            pn.props.list = pn.grouped();
+            pn.props.list = pn.grouped('title'); // TODO: 配置默认排序规则
             routes.push({
                 params: { path },
                 props: pn.props,
@@ -58,7 +58,7 @@ export async function getStaticPaths() {
         } else if (pn.hasChildren() && Object.keys(pn.props).length > 0) {
             /** 是目录，带有目录信息 */
             pn.props.type = "index";
-            pn.props.list = pn.grouped();
+            pn.props.list = pn.grouped('title');
             routes.push({
                 params: { path },
                 props: pn.props,
@@ -68,7 +68,7 @@ export async function getStaticPaths() {
             pn.props = {
                 type: "autoindex",
                 data: { title: `${pn.name} (auto index)` },
-                list: pn.grouped(),
+                list: pn.grouped('title'),
             };
             routes.push({
                 params: { path },
@@ -76,9 +76,10 @@ export async function getStaticPaths() {
             });
         }
 
-        pn.props.magicProps = {
-            title: pn.props?.data?.title || pn.name,
-        };
+        pn.title = pn.props?.data?.title || pn.name,
+   
+        // NOTE: 循环引用未来可能会出问题
+        pn.props.self = pn
     }
 
     // print_routes(routes);

@@ -12,13 +12,13 @@ import IndexItem from "../components/IndexItem.astro";
 //     list: PathNode[][];
 // }
 
-const { type, data, magicProps } = Astro.props;
+const { type, data, self } = Astro.props;
 const list: PathNode[][] = Astro.props.list;
 
 // console.log( Astro.props)
 ---
 
-<Page title={magicProps?.title} prose>
+<Page title={self.title} prose>
     <div>
         <em>{type}</em>
     </div>
@@ -28,9 +28,9 @@ const list: PathNode[][] = Astro.props.list;
             {
                 list[0].map((item, i: Number) => (
                     <IndexItem
-                        text={item?.props?.magicProps?.title || "(no title)"}
+                        text={item.title || "(no title)"}
                         href={magic.absURL(item.path)}
-                        desc={magic.formatDateTime(item?.stat?.mtime)}
+                        desc={magic.formatDateTime(item.mtime)}
                         icon="folder"
                     />
                 ))
@@ -38,9 +38,9 @@ const list: PathNode[][] = Astro.props.list;
             {
                 list[1].map((item, i: Number) => (
                     <IndexItem
-                        text={item?.props?.magicProps?.title || "(no title)"}
+                        text={item.title || "(no title)"}
                         href={magic.absURL(item.path)}
-                        desc={magic.formatDateTime(item?.stat?.mtime)}
+                        desc={magic.formatDateTime(item.mtime)}
                         icon="file"
                     />
                 ))

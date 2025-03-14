@@ -3,7 +3,7 @@
  */
 import type { AnyEntryMap, z } from "astro:content";
 import { max } from "date-fns";
-import magic, {TIME_0} from "./magic";
+import magic, { TIME_0 } from "./magic";
 
 interface MagicMetadata {
     headings: any[];
@@ -83,19 +83,20 @@ export type MagicEntry = {
 // }
 
 
+
+// export type MagicStat = {
+//     ctime: Date;
+//     mtime: Date;
+//     size: number;
+//     count: number;
+//     owner: string;
+//     permission: number;
+// }
+
+
 /**
  * 路径树节点类，表示路径树中的一个节点
  */
-
-export type MagicStat = {
-    ctime: Date;
-    mtime: Date;
-    size: number;
-    count: number;
-    owner: string;
-    permission:number;
-}
-
 export class PathNode {
     /** 子节点集合 */
     children: Map<string, PathNode>;
@@ -108,7 +109,15 @@ export class PathNode {
 
     props: Record<string, any>;
 
-    stat: MagicStat;
+    // stat: MagicStat;
+    title: string;
+    desc: string;
+    ctime: Date;
+    mtime: Date;
+    size: number;
+    count: number;
+    owner: string;
+    permission: number;
 
     /**
      * 构造函数
@@ -123,14 +132,14 @@ export class PathNode {
         this.name = name;
         this.path = path;
         this.props = {};
-        this.stat = {
-            ctime: TIME_0,
-            mtime: TIME_0,
-            size: 0, // 初始化为0，由父节点累加
-            count: 0,
-            owner: 'root',
-            permission: 600,
-        };
+        this.title = this.name;
+        this.desc = '';
+        this.ctime = TIME_0;
+        this.mtime = TIME_0;
+        this.size = 0; // 初始化为0，由父节点累加
+        this.count = 0;
+        this.owner = '';
+        this.permission = 600;
     }
 
 
@@ -142,21 +151,91 @@ export class PathNode {
         return this.children.size > 0
     }
     /**
-     * 获取分组后的子节点
-     * @returns 分组后的子节点数组 [[有子节点],[无子节点]]
+     * 获取分组后的子节点，并对每个分组进行排序
+     * 
+     * @remarks
+     * 将子节点分为两组（有子节点的目录节点 / 无子节点的文件节点），
+     * 排除名为'index'的特殊文件节点，并对每个分组进行指定排序
+     * 
+     * @param sort_by - 排序字段，可选值：
+     * - 'title'  : 按名称排序（默认，区分大小写）
+     * - 'ctime' : 按创建时间排序
+     * - 'mtime' : 按最后修改时间排序
+     * - 'size'  : 按文件大小排序
+     * @param descend - 是否降序排列，默认为`false`（升序）
+     * 
+     * @returns 排序后的二维数组，结构为：
+     * [
+     *   [有子节点的目录节点（已排序）], 
+     *   [无子节点的文件节点（已排序，排除'index'）]
+     * ]
+     * 
+     * @example
+     * ```typescript
+     * // 获取按修改时间降序排列的分组节点
+     * const sortedGroups = node.grouped('mtime', true);
+     * 
+     * // 结果示例：
+     * [
+     *   [dirNode2, dirNode1], // 按mtime降序的目录
+     *   [fileNode3, fileNode2] // 按mtime降序的文件
+     * ]
+     * ```
      */
-    grouped(): PathNode[][] {
+    grouped(sort_by: 'title' | 'ctime' | 'mtime' | 'size' = 'title', descend = false): PathNode[][] {
         let children_grouped: PathNode[][] = [[], []]
         this.children.forEach((cn: PathNode) => {
             if (cn.hasChildren()) {
                 children_grouped[0].push(cn)
-            } else {
+            } else if (cn.name != 'index') {
                 children_grouped[1].push(cn)
             }
         })
 
+        // 对两个分组分别进行排序
+        children_grouped[0].sort(this.getCompare(sort_by));
+        children_grouped[1].sort(this.getCompare(sort_by));
+
+
         return children_grouped
     }
+
+    /**
+     * 获取排序比较函数（工厂函数）
+     * 
+     * @remarks
+     * 通过预生成特定排序规则的比较函数，避免每次排序时重复条件判断，提升性能
+     * 
+     * @param sort_by - 排序字段，默认为'title'
+     * @param descend - 是否降序，默认为`false`
+     * 
+     * @returns 优化后的比较函数，时间复杂度O(1)
+     */
+    getCompare(sort_by: 'title' | 'ctime' | 'mtime' | 'size' = 'title', descend = false): (a: PathNode, b: PathNode) => number {
+        if (sort_by == 'title') {
+            return descend ?
+                (a, b) => b.title.localeCompare(a.title, undefined, {
+                    sensitivity: 'base', // 忽略大小写和音调差异
+                    numeric: true        // 智能识别数字排序
+                }) :
+                (a, b) => a.title.localeCompare(b.title, undefined, {
+                    sensitivity: 'base', // 忽略大小写和音调差异
+                    numeric: true        // 智能识别数字排序
+                });
+        }
+
+        if (sort_by == 'size') {
+            return descend ?
+                (a, b) => b[sort_by] - a[sort_by] :
+                (a, b) => a[sort_by] - b[sort_by];
+        }
+
+        return descend ?
+            (a, b) => b[sort_by].getTime() - a[sort_by].getTime() :
+            (a, b) => a[sort_by].getTime() - b[sort_by].getTime();
+    }
+
+
 }
 
 /**
@@ -188,14 +267,13 @@ export class MagicTrie {
         if (path === '/' || path === '') return;
         const leaf_data = (props.data as MagicData)
         const _ctime = new Date(leaf_data?.date || TIME_0)
-        const leaf_stat: MagicStat = {
-            ctime: _ctime,
-            mtime: new Date(leaf_data?.updated_at || _ctime),
-            count: 0,
-            size: 6, // NOTE: 临时值
-            owner: 'root',
-            permission: 600,
-        }
+        const ctime = _ctime;
+        const mtime = new Date(leaf_data?.updated_at || _ctime)
+        const count = 0
+        const size = 6 // NOTE: 临时值
+        const owner = 'root'
+        const permission = 600
+
         const parts = path.split('/').filter(p => p !== '');
         let currentNode = this.root;
         let currentPath = this.root.path;
@@ -207,16 +285,21 @@ export class MagicTrie {
 
             if (!currentNode.children.has(part)) {
                 const newNode = new PathNode(currentNode, part, currentPath);
-                newNode.stat = leaf_stat
+                newNode.ctime = ctime
+                newNode.mtime = mtime
+                newNode.size = size
+                newNode.owner = owner
+                newNode.permission = permission
+
                 currentNode.children.set(part, newNode);
                 this.nmap.set(currentPath, newNode);
             }
 
 
-            currentNode.stat.ctime = max([currentNode.stat.ctime, leaf_stat.ctime])
-            currentNode.stat.mtime = max([currentNode.stat.mtime, leaf_stat.mtime])
-            currentNode.stat.size += leaf_stat.size
-            currentNode.stat.count += 1
+            currentNode.ctime = max([currentNode.ctime, ctime])
+            currentNode.mtime = max([currentNode.mtime, mtime])
+            currentNode.size += size
+            currentNode.count += 1
 
             currentNode = currentNode.children.get(part)!;
         }
