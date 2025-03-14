@@ -20,12 +20,14 @@ export async function getStaticPaths() {
         let entry: MagicEntry;
         // @ts-ignore
         for (entry of await getCollection(coll)) {
-            let path = magic.fmt.permalink(entry);
-            
+            let path = magic.distPath(entry);
+
             let props = { entry, type: "entry", data: entry.data };
             mt.insert(path, props);
         }
     }
+
+    /** 添加入口、目录路由 */
 
     for (let [path, pn] of mt.nmap) {
         if (!pn.name) continue;
@@ -40,7 +42,7 @@ export async function getStaticPaths() {
             /** 是目录，且里面有index*/
             pn.props = pn.children!.get("index")!.props;
             pn.props.type = "index";
-            pn.props.list = pn.grouped('title'); // TODO: 配置默认排序规则
+            pn.props.list = pn.grouped("title"); // TODO: 配置默认排序规则
             routes.push({
                 params: { path },
                 props: pn.props,
@@ -48,7 +50,7 @@ export async function getStaticPaths() {
         } else if (pn.hasChildren() && Object.keys(pn.props).length > 0) {
             /** 是目录，带有目录信息 */
             pn.props.type = "index";
-            pn.props.list = pn.grouped('title');
+            pn.props.list = pn.grouped("title");
             routes.push({
                 params: { path },
                 props: pn.props,
@@ -58,7 +60,7 @@ export async function getStaticPaths() {
             pn.props = {
                 type: "autoindex",
                 data: { title: `${pn.name} (auto index)` },
-                list: pn.grouped('title'),
+                list: pn.grouped("title"),
             };
             routes.push({
                 params: { path },
@@ -66,11 +68,12 @@ export async function getStaticPaths() {
             });
         }
 
-        pn.title = pn.props?.data?.title || pn.name,
-   
-        // NOTE: 循环引用未来可能会出问题
-        pn.props.self = pn
+        (pn.title = pn.props?.data?.title || pn.name),
+            // NOTE: 循环引用未来可能会出问题
+            (pn.props.self = pn);
     }
+
+    
 
     // print_routes(routes);
     return routes;
